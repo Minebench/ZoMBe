@@ -187,7 +187,7 @@ public class EntityDaFlyer extends EntityPlayerSP
     @Override
     protected boolean pushOutOfBlocks(double x, double y, double z)
     {
-        if (this.capabilities.isCreativeMode && DaFlight.get().DFController.noClipOn && DaFlight.get().DFController.flyModOn)
+        if (DaFlight.get().DFController.noClipOn && DaFlight.get().DFController.flyModOn)
         {
             this.noClip = true;
         }
@@ -197,7 +197,7 @@ public class EntityDaFlyer extends EntityPlayerSP
     @Override
     public void moveEntity(double x, double y, double z)
     {
-        this.noClip = this.capabilities.isCreativeMode && DaFlight.get().DFController.noClipOn && DaFlight.get().DFController.flyModOn;
+        this.noClip = DaFlight.get().DFController.noClipOn && DaFlight.get().DFController.flyModOn;
         super.moveEntity(x, y, z);
     }
 
