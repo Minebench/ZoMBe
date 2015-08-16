@@ -15,3 +15,10 @@ Mess/
 bin/
 debug/
 ant/buildnumber.txt
+
+build/
+
+#eclipse
+.settings/
+.project
+.classpath
