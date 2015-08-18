@@ -10,7 +10,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.stats.StatFileWriter;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 /**
@@ -42,7 +41,7 @@ public class EntityDaFlyer extends EntityPlayerSP
             super.movementInput = this.movementInput;
         this.movementInput.block = DaFlight.get().DFController.flyModOn;
         super.onLivingUpdate();
-        this.noClip = DaFlight.get().DFController.flyModOn;
+        this.noClip = DaFlight.get().DFController.noClipOn;
     }
 
     @Override
@@ -201,9 +200,4 @@ public class EntityDaFlyer extends EntityPlayerSP
         super.moveEntity(x, y, z);
     }
 
-    @Override
-    public boolean isEntityInsideOpaqueBlock()
-    {
-        return !(DaFlight.get().DFController.noClipOn || !super.isEntityInsideOpaqueBlock());
-    }
 }
