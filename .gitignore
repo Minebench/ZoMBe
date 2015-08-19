@@ -15,6 +15,7 @@ Mess/
 bin/
 debug/
 ant/buildnumber.txt
+*.MF
 
 build/
 
