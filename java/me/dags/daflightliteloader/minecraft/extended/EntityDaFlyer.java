@@ -145,7 +145,11 @@ public class EntityDaFlyer extends EntityPlayerSP
         if (!DaFlight.getConfig().disabled && DaFlight.get().DFController.flyModOn)
         {
             if (!this.capabilities.isFlying)
+            {
                 this.capabilities.isFlying = true;
+                // resend because server things not flying
+                DaFlight.getMC().getPlayer().sendPlayerAbilities();
+            }
             if (DaFlight.getConfig().disableFov)
                 return 1.0F;
         }
