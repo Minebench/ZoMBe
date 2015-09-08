@@ -46,6 +46,15 @@ public class EntityDaFlyer extends EntityPlayerSP
         if (super.movementInput != this.movementInput)
             super.movementInput = this.movementInput;
 
+        if (DaFlight.getConfig().enableStep)
+        {
+            this.stepHeight = 1.1f;
+        }
+        else
+        {
+            this.stepHeight = 0.6f;
+        }
+
         this.movementInput.block = DaFlight.get().DFController.flyModOn;
         super.onLivingUpdate();
     }
