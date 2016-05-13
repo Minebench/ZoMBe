@@ -36,6 +36,9 @@ minecraft {
 
 sourceSets {
     main {
+        java.srcDir 'java'
+        resources.srcDir 'res'
+        compileClasspath += rootProject.sourceSets.main.compileClasspath
         // Refmap declaration must match the refmap name specified in the json config
         refMap = "mixins.daflight.refmap.json"
     }
