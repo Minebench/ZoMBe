@@ -43,7 +43,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.server.S01PacketJoinGame;
+import net.minecraft.network.play.server.SPacketJoinGame;
 
 import java.io.File;
 import java.util.List;
@@ -59,7 +59,7 @@ public class LiteModDaFlight implements DaFlightAPI, Tickable, HUDRenderListener
     @Override
     public String getName()
     {
-        return DAFLIGHT_MOD.getName();
+        return "DaFlight" /*DAFLIGHT_MOD.getName()*/;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class LiteModDaFlight implements DaFlightAPI, Tickable, HUDRenderListener
     }
 
     @Override
-    public void onJoinGame(INetHandler netHandler, S01PacketJoinGame joinGamePacket, ServerData serverData, RealmsServer realmsServer)
+    public void onJoinGame(INetHandler netHandler, SPacketJoinGame joinGamePacket, ServerData serverData, RealmsServer realmsServer)
     {
         DAFLIGHT_MOD.onJoinGame();
     }

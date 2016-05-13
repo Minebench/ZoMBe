@@ -17,8 +17,8 @@ public class ControllerMPOverlay
 {
     private static PlayerControllerMP __TARGET;
 
-    @Obfuscated(value = {"func_178892_a", "a"})
-    public EntityPlayerSP func_178892_a(World worldIn, StatFileWriter fileWriter)
+    @Obfuscated(value = {"createClientPlayer", "func_178892_a", "a"})
+    public EntityPlayerSP createClientPlayer(World worldIn, StatFileWriter fileWriter)
     {
         String[] fieldObf = new String[]{"b", "field_78774_b", "netClientHandler"};
         FieldAccess<NetHandlerPlayClient> netHandlerAccessor = new FieldAccess<NetHandlerPlayClient>(PlayerControllerMP.class, fieldObf);

@@ -1,6 +1,7 @@
 package me.dags.daflightliteloader.minecraft;
 
 import me.dags.daflightapi.minecraft.MinecraftGame;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -8,7 +9,11 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -55,21 +60,22 @@ public class MCGame implements MinecraftGame
     public boolean onSolidBlock()
     {
         BlockPos pos = new BlockPos(getPlayer().posX, getPlayer().lastTickPosY, getPlayer().posZ);
-        return getMinecraft().theWorld.getBlockState(pos.down()).getBlock().getMaterial().isSolid();
+        IBlockState blockState = getMinecraft().theWorld.getBlockState(pos.down());
+        return blockState.getBlock().getMaterial(blockState).isSolid();
     }
 
     @Override
-    public IChatComponent getMessage(String s)
+    public ITextComponent getMessage(String s)
     {
-        IChatComponent message = new ChatComponentText("[DaFlight] ").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_PURPLE));
-        message.appendSibling(new ChatComponentText(s).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GRAY)));
+        ITextComponent message = new TextComponentString("[DaFlight] ").setChatStyle(new Style().setColor(TextFormatting.DARK_PURPLE));
+        message.appendSibling(new TextComponentString(s).setChatStyle(new Style().setColor(TextFormatting.GRAY)));
         return message;
     }
 
     @Override
     public void setInvulnerable(boolean invulnerable)
     {
-        EntityPlayer ep = MinecraftServer.getServer().getEntityWorld().getPlayerEntityByUUID(getPlayer().getUniqueID());
+        EntityPlayer ep = getPlayer().getServer().getEntityWorld().getPlayerEntityByUUID(getPlayer().getUniqueID());
         ep.capabilities.disableDamage = invulnerable || ep.capabilities.isCreativeMode || ep.isSpectator();
         ep.sendPlayerAbilities();
     }
@@ -88,7 +94,7 @@ public class MCGame implements MinecraftGame
             lastWidth = getMinecraft().displayWidth;
             lastHeight = getMinecraft().displayHeight;
             lastGuiScale = getGameSettings().guiScale;
-            scaledResolution = new ScaledResolution(getMinecraft(), getMinecraft().displayWidth, getMinecraft().displayHeight);
+            scaledResolution = new ScaledResolution(getMinecraft());
         }
         return scaledResolution;
     }
