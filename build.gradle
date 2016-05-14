@@ -24,7 +24,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.liteloader'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "0.1-phoenix"
+version = "2.4r9-0.1-phoenix"
 group = "me.dags.daflightliteloader"
 archivesBaseName = "daflightliteloader"
 
@@ -49,6 +49,7 @@ litemod {
     json {
         name = "DaFlight"
         mcversion = "1.9.0"
+        author = "dags, killjoy1221, Phoenix616",
         //mixinConfigs += "mixins.daflight.json" //No working mixins yet :(
         classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.MCStartTransformer"
         classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.PlayerControllerTransformer"

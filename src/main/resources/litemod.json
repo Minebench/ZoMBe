@@ -1,8 +1,9 @@
 {
   "name": "DaFlight",
+  "version": "${version}",
   "mcversion": "${mcversion}",
   "revision": "${revision}",
-  "author": "dags",
+  "author": "dags, killjoy1221, Phoenix616",
   "description": "A fly mod!",
   "classTransformerClasses": [
     "me.dags.daflightliteloader.minecraft.transformers.PlayerTransformer",
