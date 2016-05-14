@@ -67,8 +67,8 @@ public class MCGame implements MinecraftGame
     @Override
     public ITextComponent getMessage(String s)
     {
-        ITextComponent message = new TextComponentString("[DaFlight] ").setChatStyle(new Style().setColor(TextFormatting.DARK_PURPLE));
-        message.appendSibling(new TextComponentString(s).setChatStyle(new Style().setColor(TextFormatting.GRAY)));
+        ITextComponent message = new TextComponentString("[DaFlight] ").setStyle(new Style().setColor(TextFormatting.DARK_PURPLE));
+        message.appendSibling(new TextComponentString(s).setStyle(new Style().setColor(TextFormatting.GRAY)));
         return message;
     }
 
