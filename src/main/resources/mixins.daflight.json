@@ -1,15 +1,10 @@
 {
-    "required": true,
+    "required": false,
     "minVersion": "0.5.3",
     "package": "me.dags.daflightliteloader.minecraft.mixins",
     "refmap": "mixins.daflight.refmap.json",
-    "mixins": [
-        "MixinEntityPlayer",
-        "MixinEntityRenderer",
-        "MixinPlayerControllerMP",
-        "MixinRenderGlobal"
-    ],
+    "mixins": [],
     "injectors": {
-        "defaultRequire": 1
+        "defaultRequire": 0
     }
 }
