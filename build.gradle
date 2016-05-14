@@ -24,9 +24,9 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.liteloader'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "0.1"
+version = "0.1-phoenix"
 group = "me.dags.daflightliteloader"
-archivesBaseName = "daflight"
+archivesBaseName = "daflightliteloader"
 
 minecraft {
     version = "1.9"
@@ -36,11 +36,8 @@ minecraft {
 
 sourceSets {
     main {
-        java.srcDir 'java'
-        resources.srcDir 'res'
-        compileClasspath += rootProject.sourceSets.main.compileClasspath
         // Refmap declaration must match the refmap name specified in the json config
-        refMap = "mixins.daflight.refmap.json"
+        //refMap = "mixins.example.refmap.json"
     }
 }
 
@@ -52,7 +49,7 @@ litemod {
     json {
         name = "DaFlight"
         mcversion = "1.9.0"
-        //mixinConfigs += "mixins.daflight.json" No working mixins yet :(
+        //mixinConfigs += "mixins.daflight.json" //No working mixins yet :(
         classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.MCStartTransformer"
         classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.PlayerControllerTransformer"
         classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.PlayerTransformer"
