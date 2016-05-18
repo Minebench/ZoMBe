@@ -30,10 +30,9 @@ import org.lwjgl.input.Keyboard;
 
 public class Binds
 {
-    public static final MenuBind MENU_BINDING = new MenuBind("Quick Menu", Keyboard.KEY_F10, "DaFlight");
-
     public AbstractBind[] binds;
     public AbstractBind[] movementBinds;
+    public AbstractBind quickMenu;
     public AbstractBind fullBright;
     public AbstractBind speedUp;
     public AbstractBind speedDown;
@@ -68,6 +67,8 @@ public class Binds
     public void initSettings()
     {
         Config c = DaFlight.getConfig();
+        quickMenu = getBind("Quick Menu", c.quickMenuKey).setType(BindType.GENERIC).setAction(new ShowQuickMenu());
+
         fullBright = getBind("FullBright", c.fullBrightKey).setType(BindType.FULLBRIGHT).setAction(new ToggleFullbright());
         fullBright.setToggle(c.fullbrightIsToggle);
         fullBright.setCanHold(true);
@@ -92,7 +93,7 @@ public class Binds
         jump = getBind("Jump", "SPACE").setType(BindType.GENERIC).setCanHold(true).setToggle(false);
         updateMovementKeys();
 
-        binds = new AbstractBind[]{enableFly, enableSprint, speedModifier, fullBright, cineFlight, noClip, flyUp, flyDown, speedUp, speedDown};
+        binds = new AbstractBind[]{quickMenu, enableFly, enableSprint, speedModifier, fullBright, cineFlight, noClip, flyUp, flyDown, speedUp, speedDown};
         movementBinds = new AbstractBind[]{forward, backward, left, right, flyUp, flyDown};
     }
 

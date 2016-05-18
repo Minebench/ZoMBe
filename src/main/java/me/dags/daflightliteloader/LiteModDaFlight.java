@@ -72,7 +72,6 @@ public class LiteModDaFlight implements DaFlightAPI, Tickable, HUDRenderListener
     public void init(File configPath)
     {
         DAFLIGHT_MOD.onInit(new MCGame(), new ChannelMessaging(new MessageHandler(), new MessageDispatcher()), new UIHelper8(), configPath);
-        LiteLoader.getInput().registerKeyBinding(Binds.MENU_BINDING);
     }
 
     @Override

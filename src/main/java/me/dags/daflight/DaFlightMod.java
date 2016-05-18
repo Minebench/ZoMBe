@@ -43,7 +43,6 @@ public class DaFlightMod implements IDaFlightMod
     {
         if (clock)
         {
-            KeybindHandler.checkMenuKey();
             if (!inGame && wasInGame)
             {
                 wasInGame = false;

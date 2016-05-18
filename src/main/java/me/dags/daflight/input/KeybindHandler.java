@@ -32,11 +32,6 @@ import me.dags.daflight.player.DFController;
 
 public class KeybindHandler
 {
-    public static void checkMenuKey()
-    {
-        if (Binds.MENU_BINDING.isKeyPressed())
-            Binds.MENU_BINDING.displayGui();
-    }
 
     public static void handleInput(DFController DFController)
     {

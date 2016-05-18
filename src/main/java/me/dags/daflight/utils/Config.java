@@ -77,6 +77,9 @@ public class Config
     @Expose
     @SerializedName("SpeedDown_Key")
     public String speedDownKey = "LBRACKET";
+    @Expose
+    @SerializedName("IngameMenu_Key")
+    public String quickMenuKey = "F10";
 
     /**
      * ControlToggles
