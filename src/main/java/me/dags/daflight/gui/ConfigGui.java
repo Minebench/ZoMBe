@@ -39,7 +39,7 @@ public abstract class ConfigGui extends GuiScreen
 
     protected final List<UIElement> uiElements;
     protected boolean singleColumnMode;
-    protected int columnHeight = 365;
+    protected int columnHeight = 420;
 
     private ToggleButton disable;
     private ToggleButton flight3D;
@@ -59,6 +59,7 @@ public abstract class ConfigGui extends GuiScreen
     private Slider jumpMultiplier;
     private Slider leftRightMultiplier;
 
+    private BindButton quickMenuKey;
     private BindButton flyKey;
     private BindButton cineKey;
     private BindButton flyUpKey;
@@ -146,6 +147,7 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(fbHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.fullbrightIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(noClipKey = new BindButton(xLeft, y += 21, w1, 20, false, "NoClip", config.noClipKey, "N"));
         uiElements.add(noClipHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.noCLipIsToggle, new String[]{"Hold", "Toggle"}));
+        uiElements.add(quickMenuKey = new BindButton(xLeft, y += 21, w1, 20, false, "Quick Menu", config.quickMenuKey, "F10"));
 
         uiElements.add(cineKey = new BindButton(xLeft, y += 21, w1, 20, false, "CineFly", config.cineFlyKey, "C"));
         uiElements.add(flyUpKey = new BindButton(xLeft, y += 21, w1, 20, false, "FlyUp", config.upKey, "SPACE"));
@@ -153,6 +155,7 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(speedUpKey = new BindButton(xLeft, y += 21, w1, 20, false, "Speed++", config.speedUpKey, "RBRACKET"));
         uiElements.add(speedDownKey = new BindButton(xLeft, y += 21, w1, 20, false, "Speed--", config.speedDownKey, "LBRACKET"));
 
+        columnHeight = y + 31;
         // Right column
         y = singleColumn ? y + 31 : yTop;
         DFController DFController = DaFlight.get().DFController;
@@ -172,10 +175,12 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(sprintStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "Sprint", "r",true).setString(config.runStatus));
         uiElements.add(noClipStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "NoClip", "n", true).setString(config.noClipStatus));
         uiElements.add(speedStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "Speed", "*",true).setString(config.speedStatus));
-        uiElements.add(fullbrightStatus = helper.getEntryBox(xRight, y + 21, 200, 17, "Fullbright", "fb",true).setString(config.fullBrightStatus));
+        uiElements.add(fullbrightStatus = helper.getEntryBox(xRight, y + 21, 200, 17, "FullBright", "fb",true).setString(config.fullBrightStatus));
 
         uiElements.add(scrollBar = new ScrollBar(displayWidth - 4, 0, displayHeight, maxYOffset).setVisible(isScrollable));
         setToolTips();
+
+        columnHeight = y > columnHeight ? y : columnHeight;
     }
 
     public void setToolTips()
@@ -200,6 +205,7 @@ public abstract class ConfigGui extends GuiScreen
         flyDownKey.addToolTip(new ToolTip("FlyDown", "The key you hold to fly downwards."));
         speedUpKey.addToolTip(new ToolTip("SpeedUp", "Hold this to increase your speed whilst in-game.", "If speed boost is enabled, it will increase the multiplier.", "FlyMod takes priority over SprintMod if both are enabled."));
         speedDownKey.addToolTip(new ToolTip("SpeedDown", "Hold this to decrease your speed whilst in-game.", "If speed boost is enabled, it will increase the multiplier.", "FlyMod takes priority over SprintMod if both are enabled."));
+        quickMenuKey.addToolTip(new ToolTip("Quick Menu", "Quick access to this config menu."));
 
         ToolTip hold = new ToolTip("Hold/Toggle", "Select whether this key should act as a", "toggle or if it should only be active whilst", "held down.");
         flyHold.addToolTip(hold);
@@ -254,7 +260,7 @@ public abstract class ConfigGui extends GuiScreen
         for (UIElement e : uiElements)
             if (e.keyInput(keyChar, keyId))
                 exit = false;
-        return exit || Binds.MENU_BINDING.isKeyPressed();
+        return exit || keyId == quickMenuKey.id;
     }
 
     public void handleScrollbar(int mouseX, int mouseY)
@@ -338,6 +344,7 @@ public abstract class ConfigGui extends GuiScreen
         config.downKey = flyDownKey.getValue();
         config.speedUpKey = speedUpKey.getValue();
         config.speedDownKey = speedDownKey.getValue();
+        config.quickMenuKey = quickMenuKey.getValue();
 
         config.flightStatus = flyStatus.getValue();
         config.cineFlightStatus = cineStatus.getValue();
