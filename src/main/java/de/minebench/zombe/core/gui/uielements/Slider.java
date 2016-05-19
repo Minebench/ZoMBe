@@ -57,13 +57,17 @@ public class Slider extends GuiOptionSlider implements UIElement
 
     public Slider(int a, int x, int y, float min, float max, float defaultValue, int width)
     {
+        this("", a, x, y, min, max, defaultValue, width);
+    }
+
+    public Slider(String name, int a, int x, int y, float min, float max, float defaultValue, int width) {
         super(a, x, y, GameSettings.Options.getEnumOptions(0), min, max);
+        this.name = name;
         this.min = min;
         this.max = max;
         this.width = width;
-        this.value = 0.5F;
+        setDefaultValue(defaultValue);
         this.defaultY = y;
-        this.defaultValue = defaultValue;
     }
 
     public Slider setDefaultValue(float f)

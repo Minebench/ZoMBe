@@ -22,6 +22,7 @@
 
 package de.minebench.zombe.core.utils;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
@@ -34,6 +35,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -56,6 +59,9 @@ public class Config
     @Expose
     @SerializedName("FullBright_Key")
     public String fullBrightKey = "MINUS";
+    @Expose
+    @SerializedName("OreHighlighter_Key")
+    public String oreHighlighterKey = "M";
     @Expose
     @SerializedName("Flight_Key")
     public String flyKey = "F";
@@ -96,6 +102,9 @@ public class Config
     @Expose
     @SerializedName("FullBright_Is_Toggle")
     public boolean fullbrightIsToggle = true;
+    @Expose
+    @SerializedName("Xray_Is_Toggle")
+    public boolean oreHighlighterIsToggle = true;
     @Expose
     @SerializedName("NoClip_Is_Toggle")
     public boolean noCLipIsToggle = true;
@@ -146,6 +155,9 @@ public class Config
     @Expose
     @SerializedName("Left-Right_Modifier")
     public float lrModifier = 0.85F;
+    @Expose
+    @SerializedName("OreHighlighter_Range")
+    public float oreHighlighterRange = 32F;
 
     /**
      * HudElements
@@ -163,6 +175,9 @@ public class Config
     @SerializedName("FullBright_Status")
     public String fullBrightStatus = "fb";
     @Expose
+    @SerializedName("OreHighlighter_Status")
+    public String oreHighlighterStatus = "x";
+    @Expose
     @SerializedName("Speed_Status")
     public String speedStatus = "*";
     @Expose
@@ -171,6 +186,10 @@ public class Config
     @Expose
     @SerializedName("Status_Shadow")
     public boolean textShadow = true;
+
+    @Expose
+    @SerializedName("OreColors")
+    public Map<String, ARGB> oreColors = ImmutableMap.of("test", new ARGB()); //new HashMap<String, ARGB>();
 
     private File saveFile;
 

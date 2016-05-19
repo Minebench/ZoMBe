@@ -22,13 +22,13 @@
 
 package de.minebench.zombe.core.gui.hud;
 
-public class DFEntry
+public class ZEntry
 {
 
     private String title;
-    private Boolean shown;
+    private boolean shown;
 
-    public DFEntry(String s, Boolean b)
+    public ZEntry(String s, boolean b)
     {
         title = s;
         shown = b;
@@ -49,7 +49,7 @@ public class DFEntry
         title = s;
     }
 
-    public void setShow(Boolean b)
+    public void setShow(boolean b)
     {
         shown = b;
     }

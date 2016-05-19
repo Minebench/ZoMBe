@@ -32,6 +32,7 @@ public class ZPermissions
     private boolean canFly = true;
     private boolean canSprint = true;
     private boolean canFullbright = true;
+    private boolean canHighlightOres = true;
     private boolean noFallDamage = true;
     private boolean canNoClip = false;
 
@@ -50,6 +51,10 @@ public class ZPermissions
         return canFullbright;
     }
 
+    public boolean xrayEnabled() {
+        return canHighlightOres;
+    }
+
     public boolean noFallDamageEnabled()
     {
         return noFallDamage;
@@ -65,6 +70,7 @@ public class ZPermissions
         canFly = true;
         canSprint = true;
         canFullbright = true;
+        canHighlightOres = true;
         noFallDamage = true;
         canNoClip = false;
     }
@@ -88,5 +94,9 @@ public class ZPermissions
     public void setNoClipEnabled(boolean b)
     {
         canNoClip = b;
+    }
+
+    public void setXray(boolean canXray) {
+        this.canHighlightOres = canXray;
     }
 }

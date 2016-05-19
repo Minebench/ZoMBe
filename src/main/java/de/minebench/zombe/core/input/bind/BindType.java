@@ -39,6 +39,7 @@ public enum BindType
     SPEEDUP,
     SPEEDDOWN,
     FULLBRIGHT,
+    XRAY,
     CINEFLIGHT,
     NO_CLIP,
     ;

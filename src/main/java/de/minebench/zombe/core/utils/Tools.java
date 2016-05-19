@@ -44,6 +44,10 @@ public class Tools
         df2 = new DecimalFormat("0.00", dfs);
     }
 
+    public static double square(double n) {
+        return n * n;
+    }
+
     public static float round(float f)
     {
         return Float.valueOf(df2.format(f));

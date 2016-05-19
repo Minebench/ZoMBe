@@ -1,6 +1,10 @@
 package de.minebench.zombe.liteloader.minecraft;
 
 import de.minebench.zombe.api.minecraft.MinecraftGame;
+import de.minebench.zombe.core.Zombe;
+import de.minebench.zombe.core.utils.ARGB;
+import de.minebench.zombe.core.utils.LocationInfo;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -13,9 +17,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 
 /**
- * @author dags_ <dags@dags.me>
+ * @author dags_ <dags@dags.me> and Phoenix616 (https://github.com/Phoenix616)
  */
 
 public class MCGame implements MinecraftGame
@@ -102,5 +107,25 @@ public class MCGame implements MinecraftGame
     public boolean screenSizeChanged()
     {
         return scaledResolution == null || getMinecraft().displayWidth != lastWidth || getMinecraft().displayHeight != lastHeight || getGameSettings().guiScale != lastGuiScale;
+    }
+
+    @Override
+    public void recheckOreHighlights() {
+        World world = getPlayer().getEntityWorld();
+        int px = getPlayer().getPosition().getX();
+        int py = getPlayer().getPosition().getY();
+        int pz = getPlayer().getPosition().getZ();
+        int range = (int) Zombe.getConfig().oreHighlighterRange;
+        for (int x = px - range; x < px + range; x++) {
+            for (int z = pz - range; x < pz + range; z++) {
+                for(int y = py - range; x < py + range; y++) {
+                    Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
+                    ARGB color = Zombe.getConfig().oreColors.get(block.getMaterial(block.getDefaultState()).toString());
+                    if(color != null) {
+                        Zombe.get().ZController.addOreHighlight(new LocationInfo(x + 0.5f, y + 0.5f, z + 0.5f), color);
+                    }
+                }
+            }
+        }
     }
 }

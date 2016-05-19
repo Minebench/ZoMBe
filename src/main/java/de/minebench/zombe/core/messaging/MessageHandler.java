@@ -31,6 +31,19 @@ public class MessageHandler implements PluginMessageHandler
     }
 
     @Override
+    public void xray(boolean enable)
+    {
+        String message = enable ? "Xray allowed!" : "Xray not allowed!";
+        if (getPerms().xrayEnabled() != enable)
+        {
+            Zombe.getMC().tellPlayer(message);
+        }
+        ZController.Z_PERMISSIONS.setXray(enable);
+        if (!enable && Zombe.get().ZController.oreHighlighterOn)
+            Zombe.get().ZController.toggleOreHighlighter();
+    }
+
+    @Override
     public void flyMod(boolean enable)
     {
         String message = enable ? "Fly/Sprint mod allowed!" : "Fly/Sprint mod not allowed!";

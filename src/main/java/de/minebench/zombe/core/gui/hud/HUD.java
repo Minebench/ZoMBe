@@ -42,8 +42,9 @@ public class HUD implements ZombeUI
     private static final int NO_CLIP = 2;
     private static final int FULLBRIGHT = 3;
     private static final int TEMP = 4;
+    private static final int XRAY = 5;
 
-    private List<DFEntry> mods;
+    private List<ZEntry> mods;
     private int counter = 50;
 
     private String flight = "f";
@@ -52,15 +53,17 @@ public class HUD implements ZombeUI
     private String clip = "n";
     private String modifier = "*";
     private String fb = "fb";
+    private String xray = "x";
 
     public HUD()
     {
-        mods = new ArrayList<DFEntry>();
-        mods.add(FLIGHT, new DFEntry("", false));
-        mods.add(SPRINT, new DFEntry("", false));
-        mods.add(NO_CLIP, new DFEntry("", false));
-        mods.add(FULLBRIGHT, new DFEntry(Colour.addColour(Zombe.getConfig().fullBrightStatus), false));
-        mods.add(TEMP, new DFEntry("", false));
+        mods = new ArrayList<ZEntry>();
+        mods.add(FLIGHT, new ZEntry("", false));
+        mods.add(SPRINT, new ZEntry("", false));
+        mods.add(NO_CLIP, new ZEntry("", false));
+        mods.add(FULLBRIGHT, new ZEntry("", false));
+        mods.add(XRAY, new ZEntry("", false));
+        mods.add(TEMP, new ZEntry("", false));
     }
 
     public void updateMsg()
@@ -112,6 +115,9 @@ public class HUD implements ZombeUI
         // FullBright
         mods.get(FULLBRIGHT).setTitle(fb);
         mods.get(FULLBRIGHT).setShow(dp.fullBrightOn);
+        // Xray
+        mods.get(XRAY).setTitle(xray);
+        mods.get(XRAY).setShow(dp.oreHighlighterOn);
     }
 
     public void refreshStatuses()
@@ -122,6 +128,7 @@ public class HUD implements ZombeUI
         modifier = Colour.getColouredString(Zombe.getConfig().speedStatus);
         clip = Colour.getColouredString(Zombe.getConfig().noClipStatus);
         fb = Colour.getColouredString(Zombe.getConfig().fullBrightStatus);
+        xray = Colour.getColouredString(Zombe.getConfig().oreHighlighterStatus);
     }
 
     public void renderTemp(String s)
@@ -131,7 +138,7 @@ public class HUD implements ZombeUI
         mods.get(TEMP).setShow(true);
     }
 
-    public void setTemp(Boolean b)
+    public void setTemp(boolean b)
     {
         mods.get(TEMP).setShow(b);
     }
@@ -147,7 +154,7 @@ public class HUD implements ZombeUI
         if (Zombe.getConfig().showHud && Zombe.getMC().getMinecraft().inGameHasFocus && !Zombe.getMC().getGameSettings().showDebugInfo)
         {
             int slot = 5;
-            for (DFEntry d : mods)
+            for (ZEntry d : mods)
             {
                 if (d.isShown())
                 {
@@ -174,7 +181,7 @@ public class HUD implements ZombeUI
     public int addModStatus(String s)
     {
         int i = mods.size();
-        mods.add(i, new DFEntry(s, false));
+        mods.add(i, new ZEntry(s, false));
         return i;
     }
 

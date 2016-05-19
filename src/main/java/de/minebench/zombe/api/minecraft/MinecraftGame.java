@@ -34,4 +34,6 @@ public interface MinecraftGame
     public ScaledResolution getScaledResolution();
 
     public boolean screenSizeChanged();
+
+    public void recheckOreHighlights();
 }

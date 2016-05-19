@@ -31,8 +31,15 @@ import de.minebench.zombe.core.player.mode.CineFlightMode;
 import de.minebench.zombe.core.player.mode.FlightMode;
 import de.minebench.zombe.core.player.mode.IMode;
 import de.minebench.zombe.core.player.mode.SprintMode;
+import de.minebench.zombe.core.utils.ARGB;
 import de.minebench.zombe.core.utils.Config;
+import de.minebench.zombe.core.utils.LocationInfo;
 import de.minebench.zombe.core.utils.SpeedDefaults;
+import de.minebench.zombe.core.utils.Tools;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -50,11 +57,13 @@ public class ZController
     public boolean sprintModOn = false;
     public boolean cineFlightOn = false;
     public boolean fullBrightOn = false;
+    public boolean oreHighlighterOn = false;
     public boolean noClipOn = false;
 
     public Direction direction;
     public Vector movementVector;
     private IMode controller;
+    private Map<LocationInfo, ARGB> oreHighlights = new HashMap<LocationInfo, ARGB>();
 
     private boolean customSpeeds = false;
     private boolean inMenus = true;
@@ -231,6 +240,13 @@ public class ZController
         Zombe.getMC().getGameSettings().gammaSetting = brightness;
     }
 
+    public void toggleOreHighlighter()
+    {
+        oreHighlighterOn = !oreHighlighterOn && Z_PERMISSIONS.xrayEnabled();
+        if(oreHighlighterOn)
+            Zombe.getMC().recheckOreHighlights();
+    }
+
     public void disableAll()
     {
         if (Zombe.getMC().getMinecraft().inGameHasFocus)
@@ -246,6 +262,9 @@ public class ZController
             if (fullBrightOn)
             {
                 toggleFullbright();
+            }
+            if (oreHighlighterOn) {
+                toggleOreHighlighter();
             }
         }
     }
@@ -306,4 +325,18 @@ public class ZController
         return 1D;
     }
 
+    public void addOreHighlight(LocationInfo locInfo, ARGB color) {
+        oreHighlights.put(locInfo, color);
+    }
+
+    public void checkOreHighlightsDistance(LocationInfo playerLocation) {
+        Iterator<LocationInfo> it = oreHighlights.keySet().iterator();
+        double range = Tools.square(Zombe.getConfig().oreHighlighterRange);
+        while(it.hasNext()) {
+            LocationInfo locInfo = it.next();
+            if(playerLocation.distanceSquared(locInfo) > range) {
+                it.remove();
+            }
+        }
+    }
 }

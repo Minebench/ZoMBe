@@ -33,6 +33,9 @@ public class ChannelMessaging
                 case ZData.FULL_BRIGHT:
                     handler.fullBright(ZData.getBoolFor(value));
                     break;
+                case ZData.XRAY:
+                    handler.xray(ZData.getBoolFor(value));
+                    break;
                 case ZData.FLY_MOD:
                     handler.flyMod(ZData.getBoolFor(value));
                     break;

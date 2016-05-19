@@ -63,6 +63,7 @@ public abstract class ConfigGui extends GuiScreen
     private Slider sprintMultiplier;
     private Slider jumpMultiplier;
     private Slider leftRightMultiplier;
+    private Slider oreHighlighterRange;
 
     private BindButton quickMenuKey;
     private BindButton flyKey;
@@ -74,12 +75,14 @@ public abstract class ConfigGui extends GuiScreen
     private BindButton speedUpKey;
     private BindButton speedDownKey;
     private BindButton fullBrightKey;
+    private BindButton oreHighlighterKey;
     private BindButton noClipKey;
 
     private ToggleButton flyHold;
     private ToggleButton sprintHold;
     private ToggleButton speedHold;
     private ToggleButton fbHold;
+    private ToggleButton oreHighlighterHold;
     private ToggleButton noClipHold;
 
     private IEntryBox flyStatus;
@@ -88,6 +91,7 @@ public abstract class ConfigGui extends GuiScreen
     private IEntryBox noClipStatus;
     private IEntryBox speedStatus;
     private IEntryBox fullbrightStatus;
+    private IEntryBox oreHighlighterStatus;
 
     protected ScrollBar scrollBar;
 
@@ -150,6 +154,8 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(speedHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.speedIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(fullBrightKey = new BindButton(xLeft, y += 21, w1, 20, false, "FullBright", config.fullBrightKey, "MINUS"));
         uiElements.add(fbHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.fullbrightIsToggle, new String[]{"Hold", "Toggle"}));
+        uiElements.add(oreHighlighterKey = new BindButton(xLeft, y += 21, w1, 20, false, "OreHighlighter", config.oreHighlighterKey, "M"));
+        uiElements.add(oreHighlighterHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.oreHighlighterIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(noClipKey = new BindButton(xLeft, y += 21, w1, 20, false, "NoClip", config.noClipKey, "N"));
         uiElements.add(noClipHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.noCLipIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(quickMenuKey = new BindButton(xLeft, y += 21, w1, 20, false, "Quick Menu", config.quickMenuKey, "F7"));
@@ -165,13 +171,14 @@ public abstract class ConfigGui extends GuiScreen
         y = singleColumn ? y + 31 : yTop;
         ZController ZController = Zombe.get().ZController;
         uiElements.add(new Label(xRight, y, "Modifiers").setColour(TextFormatting.DARK_AQUA));
-        uiElements.add(flySpeed = new Slider(1, xRight, y += 11, 0F, ZController.flySpeed.getMaxBaseSpeed(), 1F, 200).setDisplayString("FlySpeed").setDefaultValue(config.flySpeed * 10));
-        uiElements.add(flyMultiplier = new Slider(1, xRight, y += 21, 0F, ZController.flySpeed.getMaxMultiplier(), 5F, 200).setDisplayString("FlySpeedMultiplier").setDefaultValue(config.flySpeedMult));
-        uiElements.add(flySmoothing = new Slider(1, xRight, y += 21, 0F, 1F, 0.7F, 200).setDisplayString("FlySmoothing").setDefaultValue(config.flySmoothing));
-        uiElements.add(sprintSpeed = new Slider(1, xRight, y += 21, 0F, ZController.sprintSpeed.getMaxBaseSpeed(), 1F, 200).setDisplayString("SprintSpeed").setDefaultValue(config.sprintSpeed * 10));
-        uiElements.add(sprintMultiplier = new Slider(1, xRight, y += 21, 0F, ZController.sprintSpeed.getMaxMultiplier(), 5F, 200).setDisplayString("SprintSpeedMultiplier").setDefaultValue(config.sprintSpeedMult));
-        uiElements.add(jumpMultiplier = new Slider(1, xRight, y += 21, 0F, 1F, 0.75F, 200).setDisplayString("JumpMultiplier").setDefaultValue(config.jumpModifier));
-        uiElements.add(leftRightMultiplier = new Slider(1, xRight, y += 21, 0F, 1F, 0.85F, 200).setDisplayString("Left/RightMultiplier").setDefaultValue(config.lrModifier));
+        uiElements.add(flySpeed = new Slider("FlySpeed", 1, xRight, y += 11, 0F, ZController.flySpeed.getMaxBaseSpeed(), config.flySpeed * 10, 200));
+        uiElements.add(flyMultiplier = new Slider("FlySpeedMultiplier", 1, xRight, y += 21, 0F, ZController.flySpeed.getMaxMultiplier(), config.flySpeedMult, 200));
+        uiElements.add(flySmoothing = new Slider("FlySmoothing", 1, xRight, y += 21, 0F, 1F, config.flySmoothing, 200));
+        uiElements.add(sprintSpeed = new Slider("SprintSpeed", 1, xRight, y += 21, 0F, ZController.sprintSpeed.getMaxBaseSpeed(), config.sprintSpeed * 10, 200));
+        uiElements.add(sprintMultiplier = new Slider("SprintSpeedMultiplier", 1, xRight, y += 21, 0F, ZController.sprintSpeed.getMaxMultiplier(), config.sprintSpeedMult, 200));
+        uiElements.add(jumpMultiplier = new Slider("JumpMultiplier", 1, xRight, y += 21, 0F, 1F, config.jumpModifier, 200));
+        uiElements.add(leftRightMultiplier = new Slider("Left/RightMultiplier", 1, xRight, y += 21, 0F, 1F, config.lrModifier, 200));
+        uiElements.add(oreHighlighterRange = new Slider("OreHighlighterRange", 1, xRight, y += 21, 0F, 64F, config.oreHighlighterRange, 200));
 
         uiElements.add(new Label(xRight, y += 31, "Statuses").setColour(TextFormatting.DARK_AQUA));
         UIHelper helper = Zombe.getUIHelper();
@@ -181,6 +188,7 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(noClipStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "NoClip", "n", true).setString(config.noClipStatus));
         uiElements.add(speedStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "Speed", "*",true).setString(config.speedStatus));
         uiElements.add(fullbrightStatus = helper.getEntryBox(xRight, y + 21, 200, 17, "FullBright", "fb",true).setString(config.fullBrightStatus));
+        uiElements.add(oreHighlighterStatus = helper.getEntryBox(xRight, y + 21, 200, 17, "OreHighlighter", "o",true).setString(config.oreHighlighterStatus));
 
         uiElements.add(scrollBar = new ScrollBar(displayWidth - 4, 0, displayHeight, maxYOffset).setVisible(isScrollable));
         setToolTips();
@@ -206,6 +214,7 @@ public abstract class ConfigGui extends GuiScreen
         cineKey.addToolTip(new ToolTip("CineFly", "Enable/Disable cinematic flight mode. Is only", "active whilst FlyMod is on."));
         noClipKey.addToolTip(new ToolTip("NoClip", "Enable/Disable NoClip mode while flying (allows", "you to fly through solid blocks). Currently", "only works in single-player creative mode."));
         fullBrightKey.addToolTip(new ToolTip("FullBright", "Enable/Disable: Lights the entire world to full brightness."));
+        oreHighlighterKey.addToolTip(new ToolTip("OreHighlighter", "Enable/Disable the highlighting of ores through walls."));
         flyUpKey.addToolTip(new ToolTip("FlyUp", "The key you hold to fly upwards."));
         flyDownKey.addToolTip(new ToolTip("FlyDown", "The key you hold to fly downwards."));
         speedUpKey.addToolTip(new ToolTip("SpeedUp", "Hold this to increase your speed whilst in-game.", "If speed boost is enabled, it will increase the multiplier.", "FlyMod takes priority over SprintMod if both are enabled."));
@@ -217,6 +226,7 @@ public abstract class ConfigGui extends GuiScreen
         sprintHold.addToolTip(hold);
         speedHold.addToolTip(hold);
         fbHold.addToolTip(hold);
+        oreHighlighterHold.addToolTip(hold);
 
         flySpeed.addToolTip(new ToolTip("FlySpeed", "Set the base fly speed."));
         flyMultiplier.addToolTip(new ToolTip("FlySpeedMultiplier", "Set the boosted fly speed (toggled", "by the speed key)"));
@@ -225,6 +235,7 @@ public abstract class ConfigGui extends GuiScreen
         sprintMultiplier.addToolTip(new ToolTip("SprintSpeedMultiplier", "Set the boosted sprint speed (toggled by", "the speed key)."));
         jumpMultiplier.addToolTip(new ToolTip("JumpMultiplier", "Adjust the amount of vertical speed to", "be applied when jumping with sprint mod", "on."));
         leftRightMultiplier.addToolTip(new ToolTip("Left/RightMultiplier", "Adjust the amount of side-to-side speed", "to be applied when strafing with sprint or", "fly mod on."));
+        oreHighlighterRange.addToolTip(new ToolTip("OreHighlighter Range", "Adjust the range in which ores are highlighted."));
     }
 
     @Override
@@ -333,6 +344,7 @@ public abstract class ConfigGui extends GuiScreen
         config.sprintSpeedMult = sprintMultiplier.getValue();
         config.jumpModifier = jumpMultiplier.getValue();
         config.lrModifier = leftRightMultiplier.getValue();
+        config.oreHighlighterRange = oreHighlighterRange.getValue();
 
         config.flyKey = flyKey.getValue();
         config.flyIsToggle = flyHold.getToggleState();
@@ -344,6 +356,8 @@ public abstract class ConfigGui extends GuiScreen
         config.speedIsToggle = speedHold.getToggleState();
         config.fullBrightKey = fullBrightKey.getValue();
         config.fullbrightIsToggle = fbHold.getToggleState();
+        config.oreHighlighterKey = oreHighlighterKey.getValue();
+        config.oreHighlighterIsToggle = oreHighlighterHold.getToggleState();
         config.cineFlyKey = cineKey.getValue();
         config.upKey = flyUpKey.getValue();
         config.downKey = flyDownKey.getValue();
@@ -357,6 +371,7 @@ public abstract class ConfigGui extends GuiScreen
         config.noClipStatus = noClipStatus.getValue();
         config.speedStatus = speedStatus.getValue();
         config.fullBrightStatus = fullbrightStatus.getValue();
+        config.oreHighlighterStatus = oreHighlighterStatus.getValue();
 
         Zombe.getConfig().saveConfig();
         Zombe.getConfig().applySettings();

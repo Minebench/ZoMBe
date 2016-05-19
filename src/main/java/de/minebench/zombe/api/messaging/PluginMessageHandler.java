@@ -8,6 +8,8 @@ public interface PluginMessageHandler
 {
     public void fullBright(boolean enable);
 
+    public void xray(boolean enable);
+
     public void flyMod(boolean enable);
 
     public void softFall(boolean enable);
