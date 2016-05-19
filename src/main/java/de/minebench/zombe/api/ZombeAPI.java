@@ -28,7 +28,7 @@ import de.minebench.zombe.api.ui.ZombeUI;
  * @author dags_ <dags@dags.me>
  */
 
-public interface DaFlightAPI
+public interface ZombeAPI
 {
     public ZombeUI getUI();
 }

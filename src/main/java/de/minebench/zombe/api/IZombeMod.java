@@ -11,7 +11,7 @@ import java.util.List;
  * @author dags_ <dags@dags.me>
  */
 
-public interface IDaFlightMod
+public interface IZombeMod
 {
     /**
      * @return Name of the mod

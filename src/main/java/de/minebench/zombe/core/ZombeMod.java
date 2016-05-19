@@ -1,7 +1,7 @@
 package de.minebench.zombe.core;
 
 import de.minebench.zombe.core.messaging.ChannelMessaging;
-import de.minebench.zombe.api.IDaFlightMod;
+import de.minebench.zombe.api.IZombeMod;
 import de.minebench.zombe.api.minecraft.MinecraftGame;
 import de.minebench.zombe.api.ui.UIHelper;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author dags_ <dags@dags.me>
  */
 
-public class ZombeMod implements IDaFlightMod
+public class ZombeMod implements IZombeMod
 {
     private boolean wasInGame;
 
