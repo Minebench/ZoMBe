@@ -6,7 +6,7 @@ import de.minebench.zombe.core.player.ZController;
 import de.minebench.zombe.core.utils.GlobalConfig;
 import de.minebench.zombe.api.ui.ZombeUI;
 import de.minebench.zombe.core.utils.Config;
-import de.minebench.zombe.api.DaFlightAPI;
+import de.minebench.zombe.api.ZombeAPI;
 import de.minebench.zombe.api.minecraft.MinecraftGame;
 import de.minebench.zombe.api.ui.UIHelper;
 
@@ -16,9 +16,9 @@ import java.io.File;
  * @author dags_ <dags@dags.me>
  */
 
-public class Zombe implements DaFlightAPI
+public class Zombe implements ZombeAPI
 {
-    public static final String VERSION = "1.0";
+    public static String VERSION = "1.0";
     private static Zombe instance;
 
     public de.minebench.zombe.core.player.ZController ZController;

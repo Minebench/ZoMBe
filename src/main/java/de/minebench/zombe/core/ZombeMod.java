@@ -30,6 +30,11 @@ public class ZombeMod implements IZombeMod
     }
 
     @Override
+    public String setVersion(String version) {
+        return Zombe.VERSION = version;
+    }
+
+    @Override
     public void onInit(MinecraftGame mcGame, ChannelMessaging channelMessaging, UIHelper uiHelper, File configFolder)
     {
         Zombe.init(mcGame, channelMessaging, uiHelper, configFolder);
