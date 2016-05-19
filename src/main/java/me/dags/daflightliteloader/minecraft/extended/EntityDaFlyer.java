@@ -6,7 +6,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketEntityAction;
-import net.minecraft.stats.StatFileWriter;
+import net.minecraft.stats.StatisticsManager;
 import net.minecraft.world.World;
 
 /**
@@ -25,9 +25,9 @@ public class EntityDaFlyer extends EntityPlayerSP
     private double oldRotationYaw;
     private double oldRotationPitch;
 
-    public EntityDaFlyer(Minecraft mc, World world, NetHandlerPlayClient netHandlerPlayClient, StatFileWriter fileWriter)
+    public EntityDaFlyer(Minecraft mc, World world, NetHandlerPlayClient netHandlerPlayClient, StatisticsManager statisticsManager)
     {
-        super(mc, world, netHandlerPlayClient, fileWriter);
+        super(mc, world, netHandlerPlayClient, statisticsManager);
         this.movementInput = new DFMovementInput();
     }
 
@@ -67,11 +67,11 @@ public class EntityDaFlyer extends EntityPlayerSP
             {
                 if (sneaking)
                 {
-                    sendQueue.addToSendQueue(new CPacketEntityAction(this, CPacketEntityAction.Action.START_SNEAKING));
+                    connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_SNEAKING));
                 }
                 else
                 {
-                    sendQueue.addToSendQueue(new CPacketEntityAction(this, CPacketEntityAction.Action.STOP_SNEAKING));
+                    connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.STOP_SNEAKING));
                 }
                 wasSneaking = sneaking;
             }
@@ -89,19 +89,19 @@ public class EntityDaFlyer extends EntityPlayerSP
             }
             if (sendMovementUpdate && sendLookUpdate)
             {
-                sendQueue.addToSendQueue(new CPacketPlayer.C06PacketPlayerPosLook(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, ground));
+                connection.sendPacket(new CPacketPlayer.PositionRotation(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, ground));
             }
             else if (sendMovementUpdate)
             {
-                sendQueue.addToSendQueue(new CPacketPlayer.C04PacketPlayerPosition(this.posX, this.getEntityBoundingBox().minY, this.posZ, ground));
+                connection.sendPacket(new CPacketPlayer.Position(this.posX, this.getEntityBoundingBox().minY, this.posZ, ground));
             }
             else if (sendLookUpdate)
             {
-                sendQueue.addToSendQueue(new CPacketPlayer.C05PacketPlayerLook(this.rotationYaw, this.rotationPitch, ground));
+                connection.sendPacket(new CPacketPlayer.Rotation(this.rotationYaw, this.rotationPitch, ground));
             }
             else
             {
-                sendQueue.addToSendQueue(new CPacketPlayer(ground));
+                connection.sendPacket(new CPacketPlayer(ground));
             }
             ++ticksSinceMovePacket;
             if (sendMovementUpdate)

@@ -13,18 +13,18 @@ import org.objectweb.asm.tree.*;
 public class MCStartTransformer extends DFTransformer
 {
     // Minecraft stuff
-    private final String obfClass = "bcf";
+    private final String obfClass = "bcd";
     private final  String srgClass = "net.minecraft.client.Minecraft";
     private final  String obfMethod = "an";
     private final  String srgMethod = "startGame";
     private final  String obfDescriptor = "()V";
     private final  String srgDescriptor = "()V";
     // RenderGlobal
-    private final String obfRenderGlobal = "bno";
+    private final String obfRenderGlobal = "bnl";
     private final String srgRenderGlobal = "net/minecraft/client/renderer/RenderGlobal";
     //DF Stuff
     private final  String renderGlobalClass = "me/dags/daflightliteloader/minecraft/extended/DFRenderGlobal";
-    private final  String obfRenderGlobalDesc = "(Lbcf;)V";
+    private final  String obfRenderGlobalDesc = "(Lbcd;)V";
     private final  String srgRenderGlobalDesc = "(Lnet/minecraft/client/Minecraft;)V";
 
     @Override

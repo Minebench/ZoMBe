@@ -29,8 +29,8 @@ group = "me.dags.daflightliteloader"
 archivesBaseName = "daflightliteloader"
 
 minecraft {
-    version = "1.9"
-    mappings = "snapshot_20160410"
+    version = "1.9.4"
+    mappings = "snapshot_20160517"
     runDir = "run"
 }
 
@@ -48,7 +48,7 @@ mixin {
 litemod {
     json {
         name = "DaFlight"
-        mcversion = "1.9.0"
+        mcversion = "1.9.4"
         author = "dags, killjoy1221, Phoenix616"
         //mixinConfigs += "mixins.daflight.json" //No working mixins yet :(
         classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.MCStartTransformer"

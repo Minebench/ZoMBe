@@ -59,7 +59,7 @@ public class LiteModDaFlight implements DaFlightAPI, Tickable, HUDRenderListener
     @Override
     public String getName()
     {
-        return "DaFlight" /*DAFLIGHT_MOD.getName()*/;
+        return DAFLIGHT_MOD.getName();
     }
 
     @Override
