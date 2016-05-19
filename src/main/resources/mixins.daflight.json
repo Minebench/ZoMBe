@@ -1,8 +1,8 @@
 {
     "required": false,
     "minVersion": "0.5.3",
-    "package": "me.dags.daflightliteloader.minecraft.mixins",
-    "refmap": "mixins.daflight.refmap.json",
+    "package": "de.minebench.zombe.liteloader.minecraft.mixins",
+    "refmap": "mixins.zombe.refmap.json",
     "mixins": [],
     "injectors": {
         "defaultRequire": 0

@@ -24,9 +24,9 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.liteloader'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "2.4r9-0.1-phoenix"
-group = "me.dags.daflightliteloader"
-archivesBaseName = "daflightliteloader"
+version = "1.0"
+group = "de.minebench.zombe"
+archivesBaseName = "zombe"
 
 minecraft {
     version = "1.9.4"
@@ -47,13 +47,14 @@ mixin {
 
 litemod {
     json {
-        name = "DaFlight"
+        name = "ZombeMB"
         mcversion = "1.9.4"
-        author = "dags, killjoy1221, Phoenix616"
+        author = "Phoenix616 (based on work from dags and killjoy1221)"
+        description = "A Minecraft utility mod based on DaFlight and inspired by zombe's modpack!"
         //mixinConfigs += "mixins.daflight.json" //No working mixins yet :(
-        classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.MCStartTransformer"
-        classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.PlayerControllerTransformer"
-        classTransformerClasses += "me.dags.daflightliteloader.minecraft.transformers.PlayerTransformer"
+        classTransformerClasses += "de.minebench.zombe.liteloader.minecraft.transformers.MCStartTransformer"
+        classTransformerClasses += "de.minebench.zombe.liteloader.minecraft.transformers.PlayerControllerTransformer"
+        classTransformerClasses += "de.minebench.zombe.liteloader.minecraft.transformers.PlayerTransformer"
     }
 }
 
