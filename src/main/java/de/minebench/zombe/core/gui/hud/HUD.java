@@ -41,8 +41,8 @@ public class HUD implements ZombeUI
     private static final int SPRINT = 1;
     private static final int NO_CLIP = 2;
     private static final int FULLBRIGHT = 3;
-    private static final int TEMP = 4;
-    private static final int XRAY = 5;
+    private static final int ORE_HIGHLIGHT = 4;
+    private static final int TEMP = 5;
 
     private List<ZEntry> mods;
     private int counter = 50;
@@ -53,7 +53,7 @@ public class HUD implements ZombeUI
     private String clip = "n";
     private String modifier = "*";
     private String fb = "fb";
-    private String xray = "x";
+    private String oreHighlight = "o";
 
     public HUD()
     {
@@ -62,7 +62,7 @@ public class HUD implements ZombeUI
         mods.add(SPRINT, new ZEntry("", false));
         mods.add(NO_CLIP, new ZEntry("", false));
         mods.add(FULLBRIGHT, new ZEntry("", false));
-        mods.add(XRAY, new ZEntry("", false));
+        mods.add(ORE_HIGHLIGHT, new ZEntry("", false));
         mods.add(TEMP, new ZEntry("", false));
     }
 
@@ -116,8 +116,8 @@ public class HUD implements ZombeUI
         mods.get(FULLBRIGHT).setTitle(fb);
         mods.get(FULLBRIGHT).setShow(dp.fullBrightOn);
         // Xray
-        mods.get(XRAY).setTitle(xray);
-        mods.get(XRAY).setShow(dp.oreHighlighterOn);
+        mods.get(ORE_HIGHLIGHT).setTitle(oreHighlight);
+        mods.get(ORE_HIGHLIGHT).setShow(dp.oreHighlighterOn);
     }
 
     public void refreshStatuses()
@@ -128,7 +128,7 @@ public class HUD implements ZombeUI
         modifier = Colour.getColouredString(Zombe.getConfig().speedStatus);
         clip = Colour.getColouredString(Zombe.getConfig().noClipStatus);
         fb = Colour.getColouredString(Zombe.getConfig().fullBrightStatus);
-        xray = Colour.getColouredString(Zombe.getConfig().oreHighlighterStatus);
+        oreHighlight = Colour.getColouredString(Zombe.getConfig().oreHighlighterStatus);
     }
 
     public void renderTemp(String s)
