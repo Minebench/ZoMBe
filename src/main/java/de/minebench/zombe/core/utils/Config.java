@@ -26,9 +26,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import de.minebench.zombe.api.IZombeMod;
+import de.minebench.zombe.api.render.ARGB;
 import de.minebench.zombe.core.Zombe;
-import de.minebench.zombe.core.ZombeMod;
 import de.minebench.zombe.core.player.ZController;
 import de.minebench.zombe.core.player.Speed;
 
@@ -178,7 +177,7 @@ public class Config
     public String fullBrightStatus = "fb";
     @Expose
     @SerializedName("OreHighlighter_Status")
-    public String oreHighlighterStatus = "x";
+    public String oreHighlighterStatus = "o";
     @Expose
     @SerializedName("Speed_Status")
     public String speedStatus = "*";
