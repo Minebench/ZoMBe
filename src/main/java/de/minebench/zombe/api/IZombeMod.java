@@ -51,6 +51,11 @@ public interface IZombeMod
     public void onRender();
 
     /**
+     * Called when the world is changed
+     */
+    public void onWorldChange();
+
+    /**
      * Reset any parameters and send a join query to the server if multiplayer
      */
     public void onJoinGame();

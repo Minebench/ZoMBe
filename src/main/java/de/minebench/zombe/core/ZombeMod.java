@@ -72,6 +72,11 @@ public class ZombeMod implements IZombeMod
     }
 
     @Override
+    public void onWorldChange() {
+        Zombe.get().ZController.clearOreHighlights();
+    }
+
+    @Override
     public void onJoinGame()
     {
         Zombe.get().ZController.onGameJoin();

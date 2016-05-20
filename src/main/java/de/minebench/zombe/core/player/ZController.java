@@ -339,4 +339,8 @@ public class ZController
             }
         }
     }
+
+    public void clearOreHighlights() {
+        oreHighlights = new HashMap<LocationInfo, ARGB>();
+    }
 }

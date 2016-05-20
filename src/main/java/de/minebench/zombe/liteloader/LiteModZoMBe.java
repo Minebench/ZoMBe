@@ -48,6 +48,7 @@ import de.minebench.zombe.liteloader.messaging.MessageDispatcher;
 import de.minebench.zombe.liteloader.minecraft.MCGame;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SPacketJoinGame;
@@ -68,6 +69,7 @@ import java.util.Map;
 public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Configurable, JoinGameListener, PluginChannelListener
 {
     private final IZombeMod ZOMBE_MOD = new ZombeMod();
+    private WorldClient lastWorld;
 
     @Override
     public String getName()
@@ -104,6 +106,11 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
     public void onTick(Minecraft m, float t, boolean inGame, boolean clock)
     {
         ZOMBE_MOD.onTick(clock, inGame);
+        if(clock && Zombe.getMC().getMinecraft().theWorld != lastWorld) {
+            ZOMBE_MOD.onWorldChange();
+            lastWorld = Zombe.getMC().getMinecraft().theWorld;
+            log("Changed world!");
+        }
     }
 
     @Override
