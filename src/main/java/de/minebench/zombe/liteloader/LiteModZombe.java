@@ -46,6 +46,7 @@ import de.minebench.zombe.api.IZombeMod;
 import de.minebench.zombe.liteloader.gui.LiteloaderMenu;
 import de.minebench.zombe.liteloader.messaging.MessageDispatcher;
 import de.minebench.zombe.liteloader.minecraft.MCGame;
+import de.minebench.zombe.liteloader.minecraft.GLHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -66,7 +67,7 @@ import java.util.Map;
  * @author dags_ <dags@dags.me>
  */
 
-public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Configurable, JoinGameListener, PluginChannelListener
+public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Configurable, JoinGameListener, PluginChannelListener, PostRenderListener
 {
     private final IZombeMod ZOMBE_MOD = new ZombeMod();
     private WorldClient lastWorld;
@@ -86,7 +87,7 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
     @Override
     public void init(File configPath)
     {
-        ZOMBE_MOD.onInit(new MCGame(), new ChannelMessaging(new MessageHandler(), new MessageDispatcher()), new UIHelper8(), configPath);
+        ZOMBE_MOD.onInit(new MCGame(), new ChannelMessaging(new MessageHandler(), new MessageDispatcher()), new UIHelper8(), new GLHelper(), configPath);
         loadVersionFromLitemodJson();
     }
 
@@ -110,6 +111,26 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
             ZOMBE_MOD.onWorldChange();
             lastWorld = Zombe.getMC().getMinecraft().theWorld;
         }
+    }
+
+    // --------------------------------------------------------------------------
+    /**
+     * @see com.mumfrey.liteloader.PostRenderListener#onPostRenderEntities(float)
+     */
+    @Override
+    public void onPostRenderEntities(float partialTicks)
+    {
+        //unused
+    }
+
+    // --------------------------------------------------------------------------
+    /**
+     * @see com.mumfrey.liteloader.PostRenderListener#onPostRender(float)
+     */
+    @Override
+    public void onPostRender(float partialTicks)
+    {
+        ZOMBE_MOD.postRender(partialTicks);
     }
 
     @Override

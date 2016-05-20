@@ -51,7 +51,7 @@ public class ZPermissions
         return canFullbright;
     }
 
-    public boolean xrayEnabled() {
+    public boolean oreHighlighterEnabled() {
         return canHighlightOres;
     }
 

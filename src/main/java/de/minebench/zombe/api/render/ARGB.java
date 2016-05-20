@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package de.minebench.zombe.core.utils;
+package de.minebench.zombe.api.render;
 
 // --------------------------------------------------------------------------
 

@@ -1,5 +1,9 @@
-/*
- * Copyright (c) 2014, dags_ <dags@dags.me>
+package de.minebench.zombe.api.render;
+
+import java.util.Map;
+
+/**
+ * Copyright 2016 Max Lee (https://github.com/Phoenix616/)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,28 +23,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+public interface IGLHelper {
 
-package de.minebench.zombe.core.input.bind;
+    public void drawOreHighlights(Map<LocationInfo, ARGB> oreHighlights, float t);
 
-/**
- * @author dags_ <dags@dags.me>
- */
+    public void beginRender(float t);
 
-public enum BindType
-{
-    GENERIC,
-    UP,
-    DOWN,
-    STRAFE,
-    MOVE,
-    FLY,
-    SPRINT,
-    MODIFIER,
-    SPEEDUP,
-    SPEEDDOWN,
-    FULLBRIGHT,
-    OREHIGLIGHTER,
-    CINEFLIGHT,
-    NO_CLIP,
-    ;
+    public void endRender();
 }

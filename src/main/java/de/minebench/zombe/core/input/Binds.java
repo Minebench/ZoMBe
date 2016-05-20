@@ -84,7 +84,7 @@ public class Binds
         fullBright = getBind("FullBright", c.fullBrightKey).setType(BindType.FULLBRIGHT).setAction(new ToggleFullbright());
         fullBright.setToggle(c.fullbrightIsToggle);
         fullBright.setCanHold(true);
-        oreHighlighter = getBind("OreHighlighter", c.oreHighlighterKey).setType(BindType.XRAY).setAction(new ToggleOreHighlighter());
+        oreHighlighter = getBind("OreHighlighter", c.oreHighlighterKey).setType(BindType.OREHIGLIGHTER).setAction(new ToggleOreHighlighter());
         oreHighlighter.setToggle(c.oreHighlighterIsToggle);
         oreHighlighter.setCanHold(true);
         speedUp = getBind("Speed++", c.speedUpKey).setType(BindType.SPEEDUP).setAction(new SpeedIncrease());

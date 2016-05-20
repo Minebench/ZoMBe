@@ -35,5 +35,5 @@ public interface MinecraftGame
 
     public boolean screenSizeChanged();
 
-    public void recheckOreHighlights();
+    public void buildOreHighlights();
 }

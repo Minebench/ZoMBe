@@ -34,7 +34,7 @@ public class MessageHandler implements PluginMessageHandler
     public void xray(boolean enable)
     {
         String message = enable ? "Xray allowed!" : "Xray not allowed!";
-        if (getPerms().xrayEnabled() != enable)
+        if (getPerms().oreHighlighterEnabled() != enable)
         {
             Zombe.getMC().tellPlayer(message);
         }

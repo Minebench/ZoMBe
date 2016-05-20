@@ -3,6 +3,7 @@ package de.minebench.zombe.core;
 import de.minebench.zombe.core.gui.hud.HUD;
 import de.minebench.zombe.core.messaging.ChannelMessaging;
 import de.minebench.zombe.core.player.ZController;
+import de.minebench.zombe.api.render.IGLHelper;
 import de.minebench.zombe.core.utils.GlobalConfig;
 import de.minebench.zombe.api.ui.ZombeUI;
 import de.minebench.zombe.core.utils.Config;
@@ -26,6 +27,7 @@ public class Zombe implements ZombeAPI
     private File configFolder;
     private MinecraftGame minecraftGame;
     private UIHelper uiHelper;
+    private IGLHelper glHelper;
     private ChannelMessaging channelMessaging;
     private HUD hud;
 
@@ -35,11 +37,12 @@ public class Zombe implements ZombeAPI
     private Zombe()
     {}
 
-    public static Zombe init(MinecraftGame minecraftGame, ChannelMessaging messenging, UIHelper uiHelper, File folder)
+    public static Zombe init(MinecraftGame minecraftGame, ChannelMessaging messenging, UIHelper uiHelper, IGLHelper glHelper, File folder)
     {
         get().minecraftGame = minecraftGame;
         get().channelMessaging = messenging;
         get().uiHelper = uiHelper;
+        get().glHelper = glHelper;
         get().configFolder = folder;
         get().ZController = new ZController();
         get().hud = new HUD();
@@ -73,6 +76,11 @@ public class Zombe implements ZombeAPI
     public static UIHelper getUIHelper()
     {
         return get().uiHelper;
+    }
+
+    public static IGLHelper getGLHelper()
+    {
+        return get().glHelper;
     }
 
     public static File getConfigFolder()

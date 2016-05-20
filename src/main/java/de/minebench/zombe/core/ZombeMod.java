@@ -4,6 +4,7 @@ import de.minebench.zombe.core.messaging.ChannelMessaging;
 import de.minebench.zombe.api.IZombeMod;
 import de.minebench.zombe.api.minecraft.MinecraftGame;
 import de.minebench.zombe.api.ui.UIHelper;
+import de.minebench.zombe.api.render.IGLHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,9 +36,9 @@ public class ZombeMod implements IZombeMod
     }
 
     @Override
-    public void onInit(MinecraftGame mcGame, ChannelMessaging channelMessaging, UIHelper uiHelper, File configFolder)
+    public void onInit(MinecraftGame mcGame, ChannelMessaging channelMessaging, UIHelper uiHelper, IGLHelper glHelper, File configFolder)
     {
-        Zombe.init(mcGame, channelMessaging, uiHelper, configFolder);
+        Zombe.init(mcGame, channelMessaging, uiHelper, glHelper, configFolder);
         Zombe.getConfig().applySettings();
         Zombe.getGlobalConfig().applyDefaults();
     }
@@ -62,6 +63,13 @@ public class ZombeMod implements IZombeMod
             wasInGame = true;
             if (clock)
                 Zombe.get().ZController.tickUpdate();
+        }
+    }
+
+    @Override
+    public void postRender(float partialTicks) {
+        if(!Zombe.getConfig().disabled) {
+            Zombe.get().ZController.postRender(partialTicks);
         }
     }
 

@@ -31,15 +31,16 @@ import de.minebench.zombe.core.player.mode.CineFlightMode;
 import de.minebench.zombe.core.player.mode.FlightMode;
 import de.minebench.zombe.core.player.mode.IMode;
 import de.minebench.zombe.core.player.mode.SprintMode;
-import de.minebench.zombe.core.utils.ARGB;
+import de.minebench.zombe.api.render.ARGB;
 import de.minebench.zombe.core.utils.Config;
-import de.minebench.zombe.core.utils.LocationInfo;
+import de.minebench.zombe.api.render.LocationInfo;
 import de.minebench.zombe.core.utils.SpeedDefaults;
 import de.minebench.zombe.core.utils.Tools;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -63,7 +64,7 @@ public class ZController
     public Direction direction;
     public Vector movementVector;
     private IMode controller;
-    private Map<LocationInfo, ARGB> oreHighlights = new HashMap<LocationInfo, ARGB>();
+    private Map<LocationInfo, ARGB> oreHighlights = new ConcurrentHashMap<LocationInfo, ARGB>();
 
     private boolean customSpeeds = false;
     private boolean inMenus = true;
@@ -108,11 +109,14 @@ public class ZController
                 softFallTicks = 5;
             }
             softFallTicks--;
+            if(oreHighlighterOn)
+                checkOreHighlightsDistance();
         }
     }
 
     public void update()
     {
+
         if (Zombe.getMC().getMinecraft().inGameHasFocus)
         {
             if (inMenus)
@@ -138,6 +142,11 @@ public class ZController
                 controller.unFocused();
             }
         }
+    }
+
+    public void postRender(float partialTicks) {
+        if(oreHighlighterOn)
+            drawOreHighlights(partialTicks);
     }
 
     public void toggleNoClip()
@@ -242,9 +251,11 @@ public class ZController
 
     public void toggleOreHighlighter()
     {
-        oreHighlighterOn = !oreHighlighterOn && Z_PERMISSIONS.xrayEnabled();
+        oreHighlighterOn = !oreHighlighterOn && Z_PERMISSIONS.oreHighlighterEnabled();
         if(oreHighlighterOn)
-            Zombe.getMC().recheckOreHighlights();
+            Zombe.getMC().buildOreHighlights();
+        else
+            clearOreHighlights();
     }
 
     public void disableAll()
@@ -329,9 +340,10 @@ public class ZController
         oreHighlights.put(locInfo, color);
     }
 
-    public void checkOreHighlightsDistance(LocationInfo playerLocation) {
+    private void checkOreHighlightsDistance() {
+        LocationInfo playerLocation = new LocationInfo(Zombe.getMC().getPlayer().posX, Zombe.getMC().getPlayer().posY, Zombe.getMC().getPlayer().posZ);
         Iterator<LocationInfo> it = oreHighlights.keySet().iterator();
-        double range = Tools.square(Zombe.getConfig().oreHighlighterRange);
+        double range = Tools.square(Zombe.getConfig().oreHighlighterRange + 2);
         while(it.hasNext()) {
             LocationInfo locInfo = it.next();
             if(playerLocation.distanceSquared(locInfo) > range) {
@@ -342,5 +354,13 @@ public class ZController
 
     public void clearOreHighlights() {
         oreHighlights = new HashMap<LocationInfo, ARGB>();
+    }
+
+    private void drawOreHighlights(float t) {
+        Zombe.getGLHelper().drawOreHighlights(oreHighlights, t);
+    }
+
+    public Map<LocationInfo, ARGB> getOreHighlights() {
+        return oreHighlights;
     }
 }

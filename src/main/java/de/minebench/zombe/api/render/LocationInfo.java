@@ -1,4 +1,4 @@
-package de.minebench.zombe.core.utils;
+package de.minebench.zombe.api.render;
 
 /**
  * Copyright 2016 Max Lee (https://github.com/Phoenix616/)
@@ -52,6 +52,15 @@ public class LocationInfo {
         if(locInfo == null) {
             throw new IllegalArgumentException("Location is null, cannot measure distance!");
         }
-        return Tools.square(locInfo.getX() - x) + Tools.square(locInfo.getY() - y) + Tools.square(locInfo.getZ() - z);
+        return square(locInfo.getX() - x) + square(locInfo.getY() - y) + square(locInfo.getZ() - z);
+    }
+
+    private double square(double n) {
+        return n * n;
+    }
+
+    @Override
+    public String toString() {
+        return x + ", " + y + ", " + z;
     }
 }

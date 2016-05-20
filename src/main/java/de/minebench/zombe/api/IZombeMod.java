@@ -3,6 +3,7 @@ package de.minebench.zombe.api;
 import de.minebench.zombe.core.messaging.ChannelMessaging;
 import de.minebench.zombe.api.minecraft.MinecraftGame;
 import de.minebench.zombe.api.ui.UIHelper;
+import de.minebench.zombe.api.render.IGLHelper;
 
 import java.io.File;
 import java.util.List;
@@ -34,9 +35,10 @@ public interface IZombeMod
      * @param mcGame Instance of the MinecraftGame interface implementation
      * @param channelMessaging The inbound and outbound custom packet handler
      * @param uiHelper The UI helper
+     * @param glHelper The OpenGL helper
      * @param configFolder The File config folder
      */
-    public void onInit(MinecraftGame mcGame, ChannelMessaging channelMessaging, UIHelper uiHelper, File configFolder);
+    public void onInit(MinecraftGame mcGame, ChannelMessaging channelMessaging, UIHelper uiHelper, IGLHelper glHelper, File configFolder);
 
     /**
      * Called every tick, update the mod here
@@ -44,6 +46,12 @@ public interface IZombeMod
      * @param inGame User is in-game
      */
     public void onTick(boolean clock, boolean inGame);
+
+    /**
+     * Called after the normal rendering finished
+     * @param partialTicks Partial ticks
+     */
+    void postRender(float partialTicks);
 
     /**
      * Draw HUD elements to the screen
