@@ -95,7 +95,7 @@ public class Zombe implements ZombeAPI
     }
 
     public static void log(Level level, String message) {
-        System.out.print("[" + level + "] [ZoMBe]" + message);
+        System.out.print("[" + level + "] [ZoMBe]" + message + "\n");
     }
 
     public static Config getConfig()
