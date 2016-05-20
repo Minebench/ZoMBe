@@ -22,12 +22,13 @@
 
 package de.minebench.zombe.core.utils;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import de.minebench.zombe.api.IZombeMod;
 import de.minebench.zombe.core.Zombe;
+import de.minebench.zombe.core.ZombeMod;
 import de.minebench.zombe.core.player.ZController;
 import de.minebench.zombe.core.player.Speed;
 
@@ -37,6 +38,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -189,7 +191,18 @@ public class Config
 
     @Expose
     @SerializedName("OreColors")
-    public Map<String, ARGB> oreColors = ImmutableMap.of("test", new ARGB()); //new HashMap<String, ARGB>();
+    public Map<String, String> oreColorsString = new HashMap<String, String>() {{
+        put("gold_ore",     "255, 215, 0");
+        put("iron_ore",     "210, 105, 30");
+        put("coal_ore",     "0, 0, 0");
+        put("lapis_ore",    "115, 135, 155");
+        put("diamond_ore",  "0, 190, 255");
+        put("redstone_ore", "255, 0, 0");
+        put("emerald_ore",  "65, 205, 130");
+        put("quartz_ore",   "200, 200, 200");
+    }};
+
+    public Map<String, ARGB> oreColors = new HashMap<String, ARGB>();
 
     private File saveFile;
 
@@ -232,6 +245,14 @@ public class Config
             zController.flySpeed.setBoost(false);
             zController.sprintSpeed.setBoost(false);
             Zombe.getHud().updateMsg();
+        }
+
+        for(Map.Entry<String, String> entry : oreColorsString.entrySet()) {
+            try {
+                oreColors.put(entry.getKey(), new ARGB(entry.getValue()));
+            } catch(NumberFormatException e) {
+                Zombe.log(Level.WARNING, "Could not load ore highlight color setting for " + entry.getKey() + ": " + e.getMessage());
+            }
         }
     }
 

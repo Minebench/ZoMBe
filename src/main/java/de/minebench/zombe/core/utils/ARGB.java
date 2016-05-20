@@ -23,6 +23,10 @@
 package de.minebench.zombe.core.utils;
 
 // --------------------------------------------------------------------------
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Stores a 32-bit Alpha + RGB colour value.
  * 
@@ -53,7 +57,7 @@ public class ARGB
      */
     public ARGB(int alpha, int red, int green, int blue)
     {
-        _value = ((alpha & 0xFF) << 24) | ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | (blue & 0xFF);
+        setARGB(alpha, red, green, blue);
     }
 
     // --------------------------------------------------------------------------
@@ -68,9 +72,34 @@ public class ARGB
         _value = value;
     }
 
+    /**
+     * Constructor to load the four components from the config like it is returned from toString()
+     *
+     * @param value The string representation of this ARGB
+     */
+    public ARGB(String value) throws NumberFormatException {
+        String[] parts = value.split(",");
+        List<Integer> values = new ArrayList<Integer>();
+        for(String part : parts) {
+            values.add(Integer.parseInt(part.trim()));
+        }
+        if(values.size() > 3) {
+            setARGB(values.get(0), values.get(1), values.get(2), values.get(3));
+        } else if(values.size() > 2){
+            setARGB(255, values.get(0), values.get(1), values.get(2));
+        } else {
+            throw new NumberFormatException(value + " does not contain enough parameters to construct ARGB. Need at least 3 (R, G and B)!");
+        }
+    }
+
+    /**
+     * Get the string representation of this ARGB
+     *
+     * @return The (A)RGB values, comma seperated in the format of either R, G, B or A, R, G, B if alpha is under 255
+     */
     @Override
     public String toString() {
-            return Integer.toString(_value);
+            return getAlpha() < 255 ? getAlpha() + ", " : "" + getRed() + ", " + getGreen() + ", " + getBlue();
     }
 
     // --------------------------------------------------------------------------
@@ -129,6 +158,20 @@ public class ARGB
     public void setRGB(int rgb)
     {
         _value = (_value & ALPHA_BITS) | (rgb & RGB_BITS);
+    }
+
+    // --------------------------------------------------------------------------
+    /**
+     * Set the R, G and B components together as a 24-bit integer.
+     *
+     * @param alpha the alpha component, in the range [0,255].
+     * @param red the red component, in the range [0,255].
+     * @param green the green component, in the range [0,255].
+     * @param blue the blue component, in the range [0,255].
+     */
+    public void setARGB(int alpha, int red, int green, int blue)
+    {
+        _value = ((alpha & 0xFF) << 24) | ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | (blue & 0xFF);
     }
 
     // --------------------------------------------------------------------------

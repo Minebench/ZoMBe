@@ -11,6 +11,7 @@ import de.minebench.zombe.api.minecraft.MinecraftGame;
 import de.minebench.zombe.api.ui.UIHelper;
 
 import java.io.File;
+import java.util.logging.Level;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -21,7 +22,7 @@ public class Zombe implements ZombeAPI
     public static String VERSION = "1.0";
     private static Zombe instance;
 
-    public de.minebench.zombe.core.player.ZController ZController;
+    public ZController ZController;
     private File configFolder;
     private MinecraftGame minecraftGame;
     private UIHelper uiHelper;
@@ -81,7 +82,7 @@ public class Zombe implements ZombeAPI
         {
             if (folder.mkdirs())
             {
-                System.out.println("Creating new config folder...");
+                log(Level.INFO, "Creating new config folder...");
             }
         }
         return folder;
@@ -91,6 +92,10 @@ public class Zombe implements ZombeAPI
     public ZombeUI getUI()
     {
         return hud;
+    }
+
+    public static void log(Level level, String message) {
+        System.out.print("[" + level + "] [ZoMBe]" + message);
     }
 
     public static Config getConfig()
