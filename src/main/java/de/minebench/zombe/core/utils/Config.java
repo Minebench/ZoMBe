@@ -60,7 +60,7 @@ public class Config
     public String downKey = "LSHIFT";
     @Expose
     @SerializedName("FullBright_Key")
-    public String fullBrightKey = "MINUS";
+    public String fullBrightKey = "B";
     @Expose
     @SerializedName("OreHighlighter_Key")
     public String oreHighlighterKey = "M";
@@ -69,22 +69,22 @@ public class Config
     public String flyKey = "F";
     @Expose
     @SerializedName("Sprint_Key")
-    public String sprintKey = "R";
+    public String sprintKey = "Y";
     @Expose
     @SerializedName("SpeedMod_Key")
-    public String speedKey = "X";
+    public String speedKey = "C";
     @Expose
     @SerializedName("CineFlight_Key")
-    public String cineFlyKey = "C";
+    public String cineFlyKey = "B";
     @Expose
     @SerializedName("NoClip_Key")
-    public String noClipKey = "N";
+    public String noClipKey = "NONE";
     @Expose
     @SerializedName("SpeedUp_Key")
-    public String speedUpKey = "RBRACKET";
+    public String speedUpKey = "PLUS";
     @Expose
     @SerializedName("SpeedDown_Key")
-    public String speedDownKey = "LBRACKET";
+    public String speedDownKey = "MINUS";
     @Expose
     @SerializedName("IngameMenu_Key")
     public String quickMenuKey = "F7";
@@ -159,7 +159,7 @@ public class Config
     public float lrModifier = 0.85F;
     @Expose
     @SerializedName("OreHighlighter_Range")
-    public float oreHighlighterRange = 32F;
+    public float oreHighlighterRange = 16F;
 
     /**
      * HudElements
@@ -192,14 +192,14 @@ public class Config
     @Expose
     @SerializedName("OreColors")
     public Map<String, String> oreColorsString = new HashMap<String, String>() {{
-        put("gold_ore",     "255, 215, 0");
-        put("iron_ore",     "210, 105, 30");
-        put("coal_ore",     "0, 0, 0");
-        put("lapis_ore",    "115, 135, 155");
-        put("diamond_ore",  "0, 190, 255");
-        put("redstone_ore", "255, 0, 0");
-        put("emerald_ore",  "65, 205, 130");
-        put("quartz_ore",   "200, 200, 200");
+        put("oreGold",     "255, 215, 0");
+        put("oreIron",     "210, 105, 30");
+        put("oreCoal",     "0, 0, 0");
+        put("oreLapis",    "115, 135, 155");
+        put("oreDiamond",  "0, 190, 255");
+        put("oreRedstone", "255, 0, 0");
+        put("oreEmerald",  "65, 205, 130");
+        put("netherquartz",   "200, 200, 200");
     }};
 
     public Map<String, ARGB> oreColors = new HashMap<String, ARGB>();

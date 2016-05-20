@@ -148,23 +148,23 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(new Label(xLeft, y += 31, "KeyBinds").setColour(TextFormatting.DARK_AQUA));
         uiElements.add(flyKey = new BindButton(xLeft, y += 11, w1, 20, false, "Fly", config.flyKey, "F"));
         uiElements.add(flyHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.flyIsToggle, new String[]{"Hold", "Toggle"}));
-        uiElements.add(sprintKey = new BindButton(xLeft, y += 21, w1, 20, false, "Sprint", config.sprintKey, "R"));
+        uiElements.add(sprintKey = new BindButton(xLeft, y += 21, w1, 20, false, "Sprint", config.sprintKey, "Y"));
         uiElements.add(sprintHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.sprintIsToggle, new String[]{"Hold", "Toggle"}));
-        uiElements.add(speedKey = new BindButton(xLeft, y += 21, w1, 20, false, "Speed", config.speedKey, "X"));
+        uiElements.add(speedKey = new BindButton(xLeft, y += 21, w1, 20, false, "Speed", config.speedKey, "C"));
         uiElements.add(speedHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.speedIsToggle, new String[]{"Hold", "Toggle"}));
-        uiElements.add(fullBrightKey = new BindButton(xLeft, y += 21, w1, 20, false, "FullBright", config.fullBrightKey, "MINUS"));
+        uiElements.add(fullBrightKey = new BindButton(xLeft, y += 21, w1, 20, false, "FullBright", config.fullBrightKey, "B"));
         uiElements.add(fbHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.fullbrightIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(oreHighlighterKey = new BindButton(xLeft, y += 21, w1, 20, false, "OreHighlighter", config.oreHighlighterKey, "M"));
         uiElements.add(oreHighlighterHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.oreHighlighterIsToggle, new String[]{"Hold", "Toggle"}));
-        uiElements.add(noClipKey = new BindButton(xLeft, y += 21, w1, 20, false, "NoClip", config.noClipKey, "N"));
+        uiElements.add(noClipKey = new BindButton(xLeft, y += 21, w1, 20, false, "NoClip", config.noClipKey, "NONE"));
         uiElements.add(noClipHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.noCLipIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(quickMenuKey = new BindButton(xLeft, y += 21, w1, 20, false, "Quick Menu", config.quickMenuKey, "F7"));
 
         uiElements.add(cineKey = new BindButton(xLeft, y += 21, w1, 20, false, "CineFly", config.cineFlyKey, "C"));
         uiElements.add(flyUpKey = new BindButton(xLeft, y += 21, w1, 20, false, "FlyUp", config.upKey, "SPACE"));
         uiElements.add(flyDownKey = new BindButton(xLeft, y += 21, w1, 20, false, "FlyDown", config.downKey, "LSHIFT"));
-        uiElements.add(speedUpKey = new BindButton(xLeft, y += 21, w1, 20, false, "Speed++", config.speedUpKey, "RBRACKET"));
-        uiElements.add(speedDownKey = new BindButton(xLeft, y += 21, w1, 20, false, "Speed--", config.speedDownKey, "LBRACKET"));
+        uiElements.add(speedUpKey = new BindButton(xLeft, y += 21, w1, 20, false, "Speed++", config.speedUpKey, "PLUS"));
+        uiElements.add(speedDownKey = new BindButton(xLeft, y += 21, w1, 20, false, "Speed--", config.speedDownKey, "MINUS"));
 
         columnHeight = y + 31;
         // Right column
