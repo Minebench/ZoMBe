@@ -109,7 +109,6 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
         if(clock && Zombe.getMC().getMinecraft().theWorld != lastWorld) {
             ZOMBE_MOD.onWorldChange();
             lastWorld = Zombe.getMC().getMinecraft().theWorld;
-            log("Changed world!");
         }
     }
 
