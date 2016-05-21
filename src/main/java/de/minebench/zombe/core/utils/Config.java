@@ -64,6 +64,9 @@ public class Config
     @SerializedName("OreHighlighter_Key")
     public String oreHighlighterKey = "M";
     @Expose
+    @SerializedName("MobHighlighter_Key")
+    public String mobHighlighterKey = "COMMA";
+    @Expose
     @SerializedName("Flight_Key")
     public String flyKey = "F";
     @Expose
@@ -104,8 +107,11 @@ public class Config
     @SerializedName("FullBright_Is_Toggle")
     public boolean fullbrightIsToggle = true;
     @Expose
-    @SerializedName("Xray_Is_Toggle")
+    @SerializedName("OreHighlighter_Is_Toggle")
     public boolean oreHighlighterIsToggle = true;
+    @Expose
+    @SerializedName("MobHighlighter_Is_Toggle")
+    public boolean mobHighlighterIsToggle = true;
     @Expose
     @SerializedName("NoClip_Is_Toggle")
     public boolean noCLipIsToggle = true;
@@ -159,6 +165,12 @@ public class Config
     @Expose
     @SerializedName("OreHighlighter_Range")
     public float oreHighlighterRange = 16F;
+    @Expose
+    @SerializedName("OreHighlighter_UpdateRate")
+    public int oreHighlighterUpdateRate = 10;
+    @Expose
+    @SerializedName("MobHighlighter_Range")
+    public float mobHighlighterRange = 16F;
 
     /**
      * HudElements
@@ -179,6 +191,9 @@ public class Config
     @SerializedName("OreHighlighter_Status")
     public String oreHighlighterStatus = "o";
     @Expose
+    @SerializedName("MobHighlighter_Status")
+    public String mobHighlighterStatus = "m";
+    @Expose
     @SerializedName("Speed_Status")
     public String speedStatus = "*";
     @Expose
@@ -198,10 +213,61 @@ public class Config
         put("oreDiamond",  "0, 190, 255");
         put("oreRedstone", "255, 0, 0");
         put("oreEmerald",  "65, 205, 130");
-        put("netherquartz",   "200, 200, 200");
+        put("netherquartz","200, 200, 200");
     }};
 
     public Map<String, ARGB> oreColors = new HashMap<String, ARGB>();
+
+    @Expose
+    @SerializedName("MobColors")
+    public Map<String, String> mobColorsString = new HashMap<String, String>() {{
+        put("Slime", "255, 0, 0");
+        put("Enderman", "255, 0, 0");
+        put("Villager", "0, 255, 0");
+        put("Zombie", "255, 0, 0");
+        put("Lohe", "255, 0, 0");
+        put("Witch", "255, 0, 0");
+        put("Enderdragon", "255, 0, 0");
+        put("Furnaceminecart", "0, 255, 0");
+        put("Wolf", "255, 0, 0");
+        put("Boat", "0, 255, 0");
+        put("Minecart", "0, 255, 0");
+        put("Item", "255, 0, 0");
+        put("Skeleton", "255, 0, 0");
+        put("Cavespider", "255, 0, 0");
+        put("Player", "255, 255, 255");
+        put("Spawnerminecart", "0, 255, 0");
+        put("Spider", "255, 0, 0");
+        put("Rabbit", "0, 255, 0");
+        put("Guardian", "255, 0, 0");
+        put("Silverfish", "255, 0, 0");
+        put("Ghast", "255, 0, 0");
+        put("Squid", "0, 255, 0");
+        put("Giant", "255, 0, 0");
+        put("Hopperminecart", "0, 255, 0");
+        put("Sheep", "0, 255, 0");
+        put("Chestminecart", "0, 255, 0");
+        put("Magmacube", "255, 0, 0");
+        put("Chicken", "0, 255, 0");
+        put("Ocelot", "0, 255, 0");
+        put("Mushroomcow", "0, 255, 0");
+        put("Endermite", "255, 0, 0");
+        put("Snowman", "0, 255, 0");
+        put("Pig", "0, 255, 0");
+        put("Cow", "0, 255, 0");
+        put("Tntminecart", "0, 255, 0");
+        put("Horse", "0, 255, 0");
+        put("Bat", "0, 255, 0");
+        put("PigZombie", "255, 100, 25");
+        put("Blaze", "255, 0, 0");
+        put("Wither", "255, 0, 0");
+        put("Irongolem", "0, 255, 0");
+        put("Xp", "255, 0, 0");
+        put("Creeper", "255, 0, 0");
+        put("unknown", "150, 150, 150");
+    }};
+
+    public Map<String, ARGB> mobColors = new HashMap<String, ARGB>();
 
     private File saveFile;
 
@@ -251,6 +317,14 @@ public class Config
                 oreColors.put(entry.getKey(), new ARGB(entry.getValue()));
             } catch(NumberFormatException e) {
                 Zombe.log(Level.WARNING, "Could not load ore highlight color setting for " + entry.getKey() + ": " + e.getMessage());
+            }
+        }
+
+        for(Map.Entry<String, String> entry : mobColorsString.entrySet()) {
+            try {
+                mobColors.put(entry.getKey().toLowerCase(), new ARGB(entry.getValue()));
+            } catch(NumberFormatException e) {
+                Zombe.log(Level.WARNING, "Could not load mob highlight color setting for " + entry.getKey() + ": " + e.getMessage());
             }
         }
     }

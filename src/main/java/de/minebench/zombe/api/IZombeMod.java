@@ -1,5 +1,6 @@
 package de.minebench.zombe.api;
 
+import de.minebench.zombe.api.minecraft.EntityInfo;
 import de.minebench.zombe.core.messaging.ChannelMessaging;
 import de.minebench.zombe.api.minecraft.MinecraftGame;
 import de.minebench.zombe.api.ui.UIHelper;
@@ -57,6 +58,13 @@ public interface IZombeMod
      * Draw HUD elements to the screen
      */
     public void onRender();
+
+    /**
+     * Called when an entity is rendered
+     * @param entity Info about the entity
+     * @param partialTicks Partial tick count
+     */
+    void postRenderEntity(EntityInfo entity, float partialTicks);
 
     /**
      * Called when the world is changed

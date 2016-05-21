@@ -1,5 +1,6 @@
 package de.minebench.zombe.core;
 
+import de.minebench.zombe.api.minecraft.EntityInfo;
 import de.minebench.zombe.core.messaging.ChannelMessaging;
 import de.minebench.zombe.api.IZombeMod;
 import de.minebench.zombe.api.minecraft.MinecraftGame;
@@ -77,6 +78,11 @@ public class ZombeMod implements IZombeMod
     public void onRender()
     {
         Zombe.getHud().draw();
+    }
+
+    @Override
+    public void postRenderEntity(EntityInfo entity, float partialTicks) {
+        Zombe.get().ZController.postRenderEntity(entity, partialTicks);
     }
 
     @Override

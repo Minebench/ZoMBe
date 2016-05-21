@@ -15,7 +15,8 @@ public final class ZData
     public static final byte FLY_MOD = 2;
     public static final byte NO_FALL_DAMAGE = 3;
     public static final byte REFRESH = 4;
-    public static final byte XRAY = 5;
+    public static final byte ORE_HIGHLIGHTER = 5;
+    public static final byte MOB_HIGHLIGHTER = 6;
     public static final byte SPEED = 100;
 
     // Client->Server join message

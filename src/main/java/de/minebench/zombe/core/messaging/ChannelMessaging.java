@@ -33,8 +33,11 @@ public class ChannelMessaging
                 case ZData.FULL_BRIGHT:
                     handler.fullBright(ZData.getBoolFor(value));
                     break;
-                case ZData.XRAY:
-                    handler.xray(ZData.getBoolFor(value));
+                case ZData.ORE_HIGHLIGHTER:
+                    handler.oreHighlighter(ZData.getBoolFor(value));
+                    break;
+                case ZData.MOB_HIGHLIGHTER:
+                    handler.mobHighlighter(ZData.getBoolFor(value));
                     break;
                 case ZData.FLY_MOD:
                     handler.flyMod(ZData.getBoolFor(value));

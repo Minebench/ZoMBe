@@ -3,7 +3,7 @@ package de.minebench.zombe.liteloader.minecraft;
 import de.minebench.zombe.api.minecraft.MinecraftGame;
 import de.minebench.zombe.core.Zombe;
 import de.minebench.zombe.api.render.ARGB;
-import de.minebench.zombe.api.render.LocationInfo;
+import de.minebench.zombe.api.minecraft.LocationInfo;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -17,6 +17,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author dags_ <dags@dags.me> and Phoenix616 (https://github.com/Phoenix616)
@@ -45,6 +48,11 @@ public class MCGame implements MinecraftGame
     public EntityPlayerSP getPlayer()
     {
         return getMinecraft().thePlayer;
+    }
+
+    @Override
+    public LocationInfo getPlayerLocation() {
+        return new LocationInfo(getMinecraft().thePlayer.posX, getMinecraft().thePlayer.posY, getMinecraft().thePlayer.posZ);
     }
 
     @Override
@@ -121,6 +129,9 @@ public class MCGame implements MinecraftGame
             int py = getPlayer().getPosition().getY();
             int pz = getPlayer().getPosition().getZ();
             int range = (int) Zombe.getConfig().oreHighlighterRange + 1;
+
+            Map<LocationInfo, ARGB> oreHighlights = new HashMap<LocationInfo, ARGB>();
+
             for(int x = px - range; x < px + range; x++) {
                 for(int z = pz - range; z < pz + range; z++) {
                     for(int y = py - range; y < py + range; y++) {
@@ -133,11 +144,12 @@ public class MCGame implements MinecraftGame
                         name = name.substring(name.indexOf(".") + 1);
                         ARGB color = Zombe.getConfig().oreColors.get(name);
                         if(color != null) {
-                            Zombe.get().ZController.addOreHighlight(new LocationInfo(x, y, z), color);
+                            oreHighlights.put(new LocationInfo(x, y, z), color);
                         }
                     }
                 }
             }
+            Zombe.get().ZController.refreshOreHighlights(oreHighlights);
         }
     }
 }

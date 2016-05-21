@@ -40,6 +40,7 @@ public enum BindType
     SPEEDDOWN,
     FULLBRIGHT,
     OREHIGLIGHTER,
+    MOBHIGLIGHTER,
     CINEFLIGHT,
     NO_CLIP,
     ;

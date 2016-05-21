@@ -1,4 +1,4 @@
-package de.minebench.zombe.api.render;
+package de.minebench.zombe.api.minecraft;
 
 /**
  * Copyright 2016 Max Lee (https://github.com/Phoenix616/)

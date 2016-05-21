@@ -8,7 +8,9 @@ public interface PluginMessageHandler
 {
     public void fullBright(boolean enable);
 
-    public void xray(boolean enable);
+    public void oreHighlighter(boolean enable);
+
+    public void mobHighlighter(boolean enable);
 
     public void flyMod(boolean enable);
 

@@ -19,6 +19,8 @@ public interface MinecraftGame
 
     public EntityPlayerSP getPlayer();
 
+    public LocationInfo getPlayerLocation();
+
     public ServerData getServerData();
 
     public boolean isSinglePlayer();

@@ -1,5 +1,8 @@
 package de.minebench.zombe.api.render;
 
+import de.minebench.zombe.api.minecraft.EntityInfo;
+import de.minebench.zombe.api.minecraft.LocationInfo;
+
 import java.util.Map;
 
 /**
@@ -25,9 +28,11 @@ import java.util.Map;
  */
 public interface IGLHelper {
 
-    public void drawOreHighlights(Map<LocationInfo, ARGB> oreHighlights, float t);
+    public void drawOreHighlights(Map<LocationInfo, ARGB> oreHighlights, float partialTicks);
 
-    public void beginRender(float t);
+    public void beginRender(float partialTicks);
 
     public void endRender();
+
+    public void drawMobHighlight(EntityInfo entity, float partialTicks);
 }

@@ -1,13 +1,15 @@
 package de.minebench.zombe.liteloader.minecraft;
 
-import com.mumfrey.liteloader.gl.GL;
+import static com.mumfrey.liteloader.gl.GL.*;
+
+import de.minebench.zombe.api.minecraft.EntityInfo;
 import de.minebench.zombe.api.render.ARGB;
 import de.minebench.zombe.api.render.IGLHelper;
-import de.minebench.zombe.api.render.LocationInfo;
+import de.minebench.zombe.api.minecraft.LocationInfo;
 import de.minebench.zombe.core.Zombe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import org.lwjgl.opengl.GL11;
@@ -39,6 +41,7 @@ public class GLHelper implements IGLHelper {
 
     private boolean fogEnabled = GL11.glIsEnabled(GL11.GL_FOG);
 
+    @Override
     public void drawOreHighlights(Map<LocationInfo, ARGB> oreHighlights, float t) {
         if(oreHighlights == null || oreHighlights.size() == 0)
             return;
@@ -50,37 +53,16 @@ public class GLHelper implements IGLHelper {
             Tessellator tess = Tessellator.getInstance();
             VertexBuffer vb = tess.getBuffer();
 
-            EntityPlayerSP player = Zombe.getMC().getPlayer();
-            double px = player.posX + (player.posX - player.prevPosX) * t;
-            double py = player.posY + (player.posY - player.prevPosY) * t;
-            double pz = player.posZ + (player.posZ - player.prevPosZ) * t;
-
             LocationInfo location = entry.getKey();
             ARGB color = entry.getValue();
 
-            vb.begin(GL.GL_LINES, GL.VF_POSITION);
-            GL.glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha());
-            GL.glLineWidth(2f);
+            vb.begin(GL_LINES, VF_POSITION);
+            glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha());
+            glLineWidth(1f);
 
-            //TESTING
-            /*
-            double x = location.getX() - px;
-            double y = location.getY() - py;
-            double z = location.getZ() - pz;
-
-            vb.pos(x, y, z).endVertex();
-            vb.pos(x + 1, y, z).endVertex();
-            vb.pos(x, y, z).endVertex();
-            vb.pos(x, y + 1, z).endVertex();
-            vb.pos(x, y + 1, z).endVertex();
-            vb.pos(x + 1, y + 1, z).endVertex();
-            vb.pos(x + 1, y + 1, z).endVertex();
-            vb.pos(x + 1, y, z).endVertex();
-            */
-
-            double x = location.getX() + 0.5d - px;
-            double y = location.getY() + 0.5d - py;
-            double z = location.getZ() + 0.5d - pz;
+            double x = location.getX() + 0.5d;
+            double y = location.getY() + 0.5d;
+            double z = location.getZ() + 0.5d;
 
             vb.pos(x + 0.25d, y + 0.25d, z + 0.25d).endVertex();
             vb.pos(x - 0.25d, y - 0.25d, z - 0.25d).endVertex();
@@ -95,43 +77,70 @@ public class GLHelper implements IGLHelper {
         endRender();
     }
 
-    public void beginRender(float t) {
-        RenderHelper.disableStandardItemLighting();
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+    @Override
+    public void drawMobHighlight(EntityInfo entity, float partialTicks) {
+        beginRender(partialTicks);
+        glDisableDepthTest();
+        glDepthMask(false);
 
-        GL.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-        GL.glEnableBlend();
-        GL.glDisableTexture2D();
-        GL.glDisableLighting();
-        GL.glDepthMask(false);
-        GL.glDisableDepthTest();
-        GL.glPushMatrix();
+        ARGB color = Zombe.getConfig().mobColors.get(entity.getName());
+        if(color == null)
+            color = Zombe.getConfig().mobColors.get("unknown");
 
-        fogEnabled = GL11.glIsEnabled(GL11.GL_FOG);
-        GL.glDisableFog();
+        if(color == null)
+            color = new ARGB();
 
-        /*
-        EntityPlayerSP player = Zombe.getMC().getPlayer();
-        double x = player.posX + (player.posX - player.prevPosX) * t;
-        double y = player.posY + (player.posY - player.prevPosY) * t;
-        double z = player.posZ + (player.posZ - player.prevPosZ) * t;
-        GL.glTranslated(-x, -y, -z);
-        */
+        Tessellator tess = Tessellator.getInstance();
+        VertexBuffer vb = tess.getBuffer();
+
+        vb.begin(GL_LINES, VF_POSITION);
+        glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha());
+        glLineWidth(1f);
+
+        double x = entity.getLocation().getX();
+        double y = entity.getLocation().getY();
+        double z = entity.getLocation().getZ();
+
+        vb.pos(x, y, z).endVertex();
+        vb.pos(x, y + entity.getEyeHeight(), z).endVertex();
+        tess.draw();
+
+        glEnableDepthTest();
+        glDepthMask(true);
+        endRender();
     }
 
+    @Override
+    public void beginRender(float t) {
+
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnableBlend();
+        glDisableTexture2D();
+
+        fogEnabled = GL11.glIsEnabled(GL_FOG);
+        glDisableFog();
+
+        glPushMatrix();
+
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        double x = player.prevPosX + (player.posX - player.prevPosX) * t;
+        double y = player.prevPosY + (player.posY - player.prevPosY) * t;
+        double z = player.prevPosZ + (player.posZ - player.prevPosZ) * t;
+        glTranslated(-x, -y, -z);
+
+    }
+
+    @Override
     public void endRender() {
-        GL.glPopMatrix();
+        glPopMatrix();
 
         if(fogEnabled) {
-            GL.glEnableFog();
+            glEnableFog();
         }
 
-        GL.glEnableDepthTest();
-        GL.glDepthMask(true);
-        GL.glEnableLighting();
-        GL.glEnableTexture2D();
-        GL.glDisableBlend();
-
-        RenderHelper.enableStandardItemLighting();
+        glEnableTexture2D();
+        glDisableBlend();
     }
 }

@@ -35,6 +35,8 @@ import com.mojang.realmsclient.dto.RealmsServer;
 import com.mumfrey.liteloader.*;
 import com.mumfrey.liteloader.modconfig.ConfigPanel;
 import com.mumfrey.liteloader.util.log.LiteLoaderLogger;
+import de.minebench.zombe.api.minecraft.EntityInfo;
+import de.minebench.zombe.api.minecraft.LocationInfo;
 import de.minebench.zombe.core.Zombe;
 import de.minebench.zombe.core.messaging.MessageHandler;
 import de.minebench.zombe.api.ui.ZombeUI;
@@ -50,9 +52,14 @@ import de.minebench.zombe.liteloader.minecraft.GLHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SPacketJoinGame;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +74,7 @@ import java.util.Map;
  * @author dags_ <dags@dags.me>
  */
 
-public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Configurable, JoinGameListener, PluginChannelListener, PostRenderListener
+public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Configurable, JoinGameListener, PluginChannelListener, PostRenderListener, EntityRenderListener
 {
     private final IZombeMod ZOMBE_MOD = new ZombeMod();
     private WorldClient lastWorld;
@@ -120,7 +127,7 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
     @Override
     public void onPostRenderEntities(float partialTicks)
     {
-        //unused
+        // ignored
     }
 
     // --------------------------------------------------------------------------
@@ -134,8 +141,19 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
     }
 
     @Override
+    public void onRenderEntity(Render<? extends Entity> render, Entity entity, double xPos, double yPos, double zPos, float yaw, float partialTicks) {
+        // ignored
+    }
+
+    @Override
+    public void onPostRenderEntity(Render<? extends Entity> render, Entity entity, double xPos, double yPos, double zPos, float yaw, float partialTicks) {
+        ZOMBE_MOD.postRenderEntity(new EntityInfo(entity.getName(), new LocationInfo(entity.posX, entity.posY, entity.posZ), entity.getEyeHeight()), partialTicks);
+    }
+
+    @Override
     public void onPreRenderHUD(int screenWidth, int screenHeight)
     {
+        // ignored
     }
 
     @Override
@@ -261,5 +279,4 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
             return getClass().getResourceAsStream("/litemod.json");
         }
     }
-
 }

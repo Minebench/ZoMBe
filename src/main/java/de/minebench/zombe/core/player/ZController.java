@@ -22,6 +22,7 @@
 
 package de.minebench.zombe.core.player;
 
+import de.minebench.zombe.api.minecraft.EntityInfo;
 import de.minebench.zombe.core.Zombe;
 import de.minebench.zombe.core.input.KeybindHandler;
 import de.minebench.zombe.core.input.MovementHandler;
@@ -33,11 +34,10 @@ import de.minebench.zombe.core.player.mode.IMode;
 import de.minebench.zombe.core.player.mode.SprintMode;
 import de.minebench.zombe.api.render.ARGB;
 import de.minebench.zombe.core.utils.Config;
-import de.minebench.zombe.api.render.LocationInfo;
+import de.minebench.zombe.api.minecraft.LocationInfo;
 import de.minebench.zombe.core.utils.SpeedDefaults;
 import de.minebench.zombe.core.utils.Tools;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -59,6 +59,7 @@ public class ZController
     public boolean cineFlightOn = false;
     public boolean fullBrightOn = false;
     public boolean oreHighlighterOn = false;
+    public boolean mobHighlighterOn = false;
     public boolean noClipOn = false;
 
     public Direction direction;
@@ -70,6 +71,7 @@ public class ZController
     private boolean inMenus = true;
     private boolean wasFlying = false;
     private int softFallTicks = 0;
+    private int refreshOreCounter = 0;
 
     public ZController()
     {
@@ -109,8 +111,13 @@ public class ZController
                 softFallTicks = 5;
             }
             softFallTicks--;
-            if(oreHighlighterOn)
-                checkOreHighlightsDistance();
+
+            if(oreHighlighterOn) {
+                if(refreshOreCounter++ >= Zombe.getConfig().oreHighlighterUpdateRate) {
+                    refreshOreCounter = 0;
+                    Zombe.getMC().buildOreHighlights();
+                }
+            }
         }
     }
 
@@ -147,6 +154,12 @@ public class ZController
     public void postRender(float partialTicks) {
         if(oreHighlighterOn)
             drawOreHighlights(partialTicks);
+    }
+
+    public void postRenderEntity(EntityInfo entity, float partialTicks) {
+        if(mobHighlighterOn && entity.getLocation().distanceSquared(Zombe.getMC().getPlayerLocation()) < Tools.square(Zombe.getConfig().mobHighlighterRange)) {
+            Zombe.getGLHelper().drawMobHighlight(entity, partialTicks);
+        }
     }
 
     public void toggleNoClip()
@@ -258,6 +271,11 @@ public class ZController
             clearOreHighlights();
     }
 
+    public void toggleMobHighlighter()
+    {
+        mobHighlighterOn = !mobHighlighterOn && Z_PERMISSIONS.mobHighlighterEnabled();
+    }
+
     public void disableAll()
     {
         if (Zombe.getMC().getMinecraft().inGameHasFocus)
@@ -336,31 +354,22 @@ public class ZController
         return 1D;
     }
 
-    public void addOreHighlight(LocationInfo locInfo, ARGB color) {
-        oreHighlights.put(locInfo, color);
-    }
-
-    private void checkOreHighlightsDistance() {
-        LocationInfo playerLocation = new LocationInfo(Zombe.getMC().getPlayer().posX, Zombe.getMC().getPlayer().posY, Zombe.getMC().getPlayer().posZ);
-        Iterator<LocationInfo> it = oreHighlights.keySet().iterator();
-        double range = Tools.square(Zombe.getConfig().oreHighlighterRange + 2);
-        while(it.hasNext()) {
-            LocationInfo locInfo = it.next();
-            if(playerLocation.distanceSquared(locInfo) > range) {
-                it.remove();
-            }
-        }
-    }
-
     public void clearOreHighlights() {
-        oreHighlights = new HashMap<LocationInfo, ARGB>();
+        oreHighlights.clear();
     }
 
     private void drawOreHighlights(float t) {
         Zombe.getGLHelper().drawOreHighlights(oreHighlights, t);
     }
 
-    public Map<LocationInfo, ARGB> getOreHighlights() {
-        return oreHighlights;
+    public void refreshOreHighlights(Map<LocationInfo, ARGB> newHighlights) {
+        Iterator<LocationInfo> it = oreHighlights.keySet().iterator();
+        while(it.hasNext()) {
+            LocationInfo loc = it.next();
+            if(!newHighlights.containsKey(loc)) {
+                it.remove();
+            }
+        }
+        oreHighlights.putAll(newHighlights);
     }
 }

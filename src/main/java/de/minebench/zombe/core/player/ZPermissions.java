@@ -33,6 +33,7 @@ public class ZPermissions
     private boolean canSprint = true;
     private boolean canFullbright = true;
     private boolean canHighlightOres = true;
+    private boolean canHighlightMobs = true;
     private boolean noFallDamage = true;
     private boolean canNoClip = false;
 
@@ -53,6 +54,10 @@ public class ZPermissions
 
     public boolean oreHighlighterEnabled() {
         return canHighlightOres;
+    }
+
+    public boolean mobHighlighterEnabled() {
+        return canHighlightMobs;
     }
 
     public boolean noFallDamageEnabled()
@@ -96,7 +101,11 @@ public class ZPermissions
         canNoClip = b;
     }
 
-    public void setXray(boolean canXray) {
-        this.canHighlightOres = canXray;
+    public void setOreHighlight(boolean b) {
+        this.canHighlightOres = b;
+    }
+
+    public void setMobHighlight(boolean b) {
+        this.canHighlightMobs = b;
     }
 }

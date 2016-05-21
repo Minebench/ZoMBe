@@ -31,16 +31,27 @@ public class MessageHandler implements PluginMessageHandler
     }
 
     @Override
-    public void xray(boolean enable)
+    public void oreHighlighter(boolean enable)
     {
-        String message = enable ? "Xray allowed!" : "Xray not allowed!";
+        String message = enable ? "Ore Highlighter allowed!" : "Ore Highlighter not allowed!";
         if (getPerms().oreHighlighterEnabled() != enable)
         {
             Zombe.getMC().tellPlayer(message);
         }
-        ZController.Z_PERMISSIONS.setXray(enable);
+        ZController.Z_PERMISSIONS.setOreHighlight(enable);
         if (!enable && Zombe.get().ZController.oreHighlighterOn)
             Zombe.get().ZController.toggleOreHighlighter();
+    }
+
+    @Override
+    public void mobHighlighter(boolean enable) {
+        String message = enable ? "Mob Highlighter allowed!" : "Mob Highlighter not allowed!";
+        if(getPerms().mobHighlighterEnabled() != enable) {
+            Zombe.getMC().tellPlayer(message);
+        }
+        ZController.Z_PERMISSIONS.setMobHighlight(enable);
+        if(!enable && Zombe.get().ZController.mobHighlighterOn)
+            Zombe.get().ZController.toggleMobHighlighter();
     }
 
     @Override
