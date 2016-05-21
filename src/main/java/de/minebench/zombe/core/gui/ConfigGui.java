@@ -194,8 +194,8 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(sprintStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "Sprint", "r",true).setString(config.runStatus));
         uiElements.add(noClipStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "NoClip", "n", true).setString(config.noClipStatus));
         uiElements.add(speedStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "Speed", "*",true).setString(config.speedStatus));
-        uiElements.add(fullbrightStatus = helper.getEntryBox(xRight, y + 21, 200, 17, "FullBright", "fb",true).setString(config.fullBrightStatus));
-        uiElements.add(oreHighlighterStatus = helper.getEntryBox(xRight, y + 21, 200, 17, "OreHighlighter", "o",true).setString(config.oreHighlighterStatus));
+        uiElements.add(fullbrightStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "FullBright", "fb",true).setString(config.fullBrightStatus));
+        uiElements.add(oreHighlighterStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "OreHighlighter", "o",true).setString(config.oreHighlighterStatus));
         uiElements.add(mobHighlighterStatus = helper.getEntryBox(xRight, y + 21, 200, 17, "MobHighlighter", "m",true).setString(config.mobHighlighterStatus));
 
         uiElements.add(scrollBar = new ScrollBar(displayWidth - 4, 0, displayHeight, maxYOffset).setVisible(isScrollable));
@@ -236,6 +236,8 @@ public abstract class ConfigGui extends GuiScreen
         speedHold.addToolTip(hold);
         fbHold.addToolTip(hold);
         oreHighlighterHold.addToolTip(hold);
+        mobHighlighterHold.addToolTip(hold);
+        noClipHold.addToolTip(hold);
 
         flySpeed.addToolTip(new ToolTip("FlySpeed", "Set the base fly speed."));
         flyMultiplier.addToolTip(new ToolTip("FlySpeedMultiplier", "Set the boosted fly speed (toggled", "by the speed key)"));
