@@ -29,8 +29,8 @@ group = "de.minebench.zombe"
 archivesBaseName = "zombe"
 
 minecraft {
-    version = "1.9.4"
-    mappings = "snapshot_20160517"
+    version = "1.10.2"
+    mappings = "snapshot_20160629"
     runDir = "run"
 }
 
@@ -48,12 +48,11 @@ mixin {
 litemod {
     json {
         name = "ZombeMB"
-        mcversion = "1.9.4"
+        mcversion = "1.10.2"
         author = "Phoenix616 (based on work from dags and killjoy1221)"
         description = "A Minecraft utility mod based on DaFlight and inspired by zombe's modpack!"
-        //mixinConfigs += "mixins.zombe.json" //No working mixins yet :(
+        mixinConfigs += "mixins.zombe.json"
         classTransformerClasses += "de.minebench.zombe.liteloader.minecraft.transformers.MCStartTransformer"
-        classTransformerClasses += "de.minebench.zombe.liteloader.minecraft.transformers.PlayerControllerTransformer"
         classTransformerClasses += "de.minebench.zombe.liteloader.minecraft.transformers.PlayerTransformer"
     }
 }

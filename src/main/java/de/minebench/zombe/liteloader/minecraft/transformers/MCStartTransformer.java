@@ -13,18 +13,18 @@ import org.objectweb.asm.tree.*;
 public class MCStartTransformer extends ZTransformer
 {
     // Minecraft stuff
-    private final String obfClass = "bcd";
+    private final String obfClass = "bcx";
     private final  String srgClass = "net.minecraft.client.Minecraft";
     private final  String obfMethod = "an";
     private final  String srgMethod = "startGame";
     private final  String obfDescriptor = "()V";
     private final  String srgDescriptor = "()V";
     // RenderGlobal
-    private final String obfRenderGlobal = "bnl";
+    private final String obfRenderGlobal = "boh";
     private final String srgRenderGlobal = "net/minecraft/client/renderer/RenderGlobal";
     //DF Stuff
     private final  String renderGlobalClass = "de/minebench/zombe/liteloader/minecraft/extended/ZRenderGlobal";
-    private final  String obfRenderGlobalDesc = "(Lbcd;)V";
+    private final  String obfRenderGlobalDesc = "(Lbcx;)V";
     private final  String srgRenderGlobalDesc = "(Lnet/minecraft/client/Minecraft;)V";
 
     @Override

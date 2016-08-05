@@ -1,23 +1,20 @@
-package de.minebench.zombe.liteloader.minecraft.extended;
+package de.minebench.zombe.liteloader.minecraft.mixins;
 
-import com.mumfrey.liteloader.transformers.Obfuscated;
 import de.minebench.zombe.core.utils.FieldAccess;
+import de.minebench.zombe.liteloader.minecraft.extended.EntityDaFlyer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.stats.StatisticsManager;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 
-/**
- * @author dags_ <dags@dags.me>
- */
+@Mixin(PlayerControllerMP.class)
+public class MixinPlayerControllerMP {
 
-public class ControllerMPOverlay
-{
-    private static PlayerControllerMP __TARGET;
-
-    @Obfuscated(value = {"createClientPlayer", "func_178892_a", "a"})
+    @Overwrite(aliases = {"createClientPlayer", "func_178892_a", "a"})
     public EntityPlayerSP createClientPlayer(World worldIn, StatisticsManager statisticsManager)
     {
         String[] fieldObf = new String[]{"b", "field_78774_b", "connection"};

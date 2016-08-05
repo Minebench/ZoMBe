@@ -30,9 +30,9 @@ import com.mumfrey.liteloader.core.runtime.Obf;
 
 public class ObfTable extends Obf
 {
-    public static ObfTable EntityRenderer = new ObfTable("net.minecraft.client.renderer.EntityRenderer", "bng");
+    public static ObfTable EntityRenderer = new ObfTable("net.minecraft.client.renderer.EntityRenderer", "bnz");
     public static ObfTable setupViewBobbing = new ObfTable("func_78475_f", "e", "setupViewBobbing");
-    public static ObfTable EntityPlayer = new ObfTable("net.minecraft.client.entity.player.EntityPlayer", "zj");
+    public static ObfTable EntityPlayer = new ObfTable("net.minecraft.client.entity.player.EntityPlayer", "zs");
     public static ObfTable onUpdate = new ObfTable("func_70071_h_", "m", "onUpdate");
 
     public ObfTable(String seargeName, String obfName)
