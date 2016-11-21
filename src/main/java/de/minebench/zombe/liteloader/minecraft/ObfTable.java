@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package de.minebench.zombe.liteloader.minecraft.transformers;
+package de.minebench.zombe.liteloader.minecraft;
 
 import com.mumfrey.liteloader.core.runtime.Obf;
 
@@ -30,10 +30,15 @@ import com.mumfrey.liteloader.core.runtime.Obf;
 
 public class ObfTable extends Obf
 {
-    public static ObfTable EntityRenderer = new ObfTable("net.minecraft.client.renderer.EntityRenderer", "bnz");
-    public static ObfTable setupViewBobbing = new ObfTable("func_78475_f", "e", "setupViewBobbing");
-    public static ObfTable EntityPlayer = new ObfTable("net.minecraft.client.entity.player.EntityPlayer", "zs");
-    public static ObfTable onUpdate = new ObfTable("func_70071_h_", "m", "onUpdate");
+
+    public static ObfTable RenderGlobal = new ObfTable("net/minecraft/client/renderer/RenderGlobal", "boh");
+
+    public static ObfTable EntityRenderer_setupViewBobbing = new ObfTable("func_78475_f", "e", "applyBobbing");
+
+    public static ObfTable EntityPlayer = new ObfTable("net.minecraft.client.entity.player.EntityPlayer", "aax");
+    public static ObfTable EntityPlayer_onUpdate = new ObfTable("func_70071_h_", "A_", "onUpdate");
+
+    public static ObfTable PlayerControllerMP_connection = new ObfTable("field_78774_b", "b", "connection");
 
     public ObfTable(String seargeName, String obfName)
     {

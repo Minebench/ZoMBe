@@ -88,14 +88,13 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
     @Override
     public String getVersion()
     {
-        return ZOMBE_MOD.getVersion();
+        return getVersionFromLitemodJson();
     }
 
     @Override
     public void init(File configPath)
     {
         ZOMBE_MOD.onInit(new MCGame(), new ChannelMessaging(new MessageHandler(), new MessageDispatcher()), new UIHelper8(), new GLHelper(), configPath);
-        loadVersionFromLitemodJson();
     }
 
     @Override
@@ -114,9 +113,9 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
     public void onTick(Minecraft m, float t, boolean inGame, boolean clock)
     {
         ZOMBE_MOD.onTick(clock, inGame);
-        if(clock && Zombe.getMC().getMinecraft().theWorld != lastWorld) {
+        if(clock && Zombe.getMC().getMinecraft().world != lastWorld) {
             ZOMBE_MOD.onWorldChange();
-            lastWorld = Zombe.getMC().getMinecraft().theWorld;
+            lastWorld = Zombe.getMC().getMinecraft().world;
         }
     }
 
@@ -212,7 +211,7 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
     /**
      * Read the mod version from the metadata.
      */
-    private void loadVersionFromLitemodJson() {
+    private String getVersionFromLitemodJson() {
         InputStream is = null;
         try
         {
@@ -223,7 +222,7 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
             String version = meta.get("version");
             if (version != null)
             {
-                ZOMBE_MOD.setVersion(version);
+                return version;
             }
         }
         catch (Exception ignored)
@@ -242,6 +241,7 @@ public class LiteModZombe implements ZombeAPI, Tickable, HUDRenderListener, Conf
                 }
             }
         }
+        return ZOMBE_MOD.getVersion();
     }
 
     /**

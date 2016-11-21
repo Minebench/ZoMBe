@@ -26,12 +26,6 @@ public interface IZombeMod
     public String getVersion();
 
     /**
-     * Set the version of the mod
-     * @param version Version of the mod
-     */
-    String setVersion(String version);
-
-    /**
      * Initialize ZoMBe and configs
      * @param mcGame Instance of the MinecraftGame interface implementation
      * @param channelMessaging The inbound and outbound custom packet handler

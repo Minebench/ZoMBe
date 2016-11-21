@@ -4,6 +4,7 @@ import de.minebench.zombe.core.Zombe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.entity.MoverType;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.stats.StatisticsManager;
@@ -134,13 +135,13 @@ public class EntityDaFlyer extends EntityPlayerSP
                 if (this.rotationPitch < -30F)
                 {
                     double speed = Zombe.get().ZController.getSpeed();
-                    this.moveEntity(0D, speed, 0D);
+                    this.move(MoverType.SELF, 0D, speed, 0D);
                 }
             }
             else if (!isSneaking() && this.rotationPitch > 40F)
             {
                 double speed = Zombe.get().ZController.getSpeed();
-                this.moveEntity(0D, -speed, 0D);
+                this.move(MoverType.SELF, 0D, -speed, 0D);
             }
         }
     }
@@ -203,11 +204,11 @@ public class EntityDaFlyer extends EntityPlayerSP
     }
 
     @Override
-    public void moveEntity(double x, double y, double z)
+    public void move(MoverType type, double x, double y, double z)
     {
         if (Zombe.get().ZController.noClipOn && Zombe.get().ZController.flyModOn)
             this.noClip = true;
-        super.moveEntity(x, y, z);
+        super.move(type, x, y, z);
     }
 
     @Override

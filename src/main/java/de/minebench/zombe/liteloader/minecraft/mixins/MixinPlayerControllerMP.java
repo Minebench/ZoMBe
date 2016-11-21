@@ -1,6 +1,7 @@
 package de.minebench.zombe.liteloader.minecraft.mixins;
 
 import de.minebench.zombe.core.utils.FieldAccess;
+import de.minebench.zombe.liteloader.minecraft.ObfTable;
 import de.minebench.zombe.liteloader.minecraft.extended.EntityDaFlyer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -17,7 +18,7 @@ public class MixinPlayerControllerMP {
     @Overwrite(aliases = {"createClientPlayer", "func_178892_a", "a"})
     public EntityPlayerSP createClientPlayer(World worldIn, StatisticsManager statisticsManager)
     {
-        String[] fieldObf = new String[]{"b", "field_78774_b", "connection"};
+        String[] fieldObf = ObfTable.PlayerControllerMP_connection.names;
         FieldAccess<NetHandlerPlayClient> netHandlerAccessor = new FieldAccess<NetHandlerPlayClient>(PlayerControllerMP.class, fieldObf);
         NetHandlerPlayClient netHandlerPlayClient = netHandlerAccessor.get(Minecraft.getMinecraft().playerController);
         return new EntityDaFlyer(Minecraft.getMinecraft(), worldIn, netHandlerPlayClient, statisticsManager);

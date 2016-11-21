@@ -1,6 +1,8 @@
 package de.minebench.zombe.liteloader.minecraft.transformers;
 
 import de.minebench.zombe.core.minecraft.ZTransformer;
+import de.minebench.zombe.liteloader.minecraft.ObfTable;
+import de.minebench.zombe.liteloader.minecraft.extended.ZRenderGlobal;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -13,24 +15,17 @@ import org.objectweb.asm.tree.*;
 public class MCStartTransformer extends ZTransformer
 {
     // Minecraft stuff
-    private final String obfClass = "bcx";
-    private final  String srgClass = "net.minecraft.client.Minecraft";
-    private final  String obfMethod = "an";
-    private final  String srgMethod = "startGame";
-    private final  String obfDescriptor = "()V";
-    private final  String srgDescriptor = "()V";
-    // RenderGlobal
-    private final String obfRenderGlobal = "boh";
-    private final String srgRenderGlobal = "net/minecraft/client/renderer/RenderGlobal";
+    private final String obfInitDesc = "()V";
+    private final String srgInitDesc = "()V";
     //DF Stuff
-    private final  String renderGlobalClass = "de/minebench/zombe/liteloader/minecraft/extended/ZRenderGlobal";
-    private final  String obfRenderGlobalDesc = "(Lbcx;)V";
-    private final  String srgRenderGlobalDesc = "(Lnet/minecraft/client/Minecraft;)V";
+    private final String zRenderGlobalClass = ZRenderGlobal.class.getName().replace('.','/');
+    private final String obfRenderGlobalDesc = "(L" + ObfTable.Minecraft.obf + ";)V";
+    private final String srgRenderGlobalDesc = "(L" + ObfTable.Minecraft.srg + ";)V";
 
     @Override
     public boolean matches(String transformedName, boolean isObf)
     {
-        return transformedName.equals(getClass(isObf));
+        return transformedName.equals(getMinecraftClass(isObf));
     }
 
     @Override
@@ -42,11 +37,11 @@ public class MCStartTransformer extends ZTransformer
             ClassReader reader = new ClassReader(classBytes);
             reader.accept(node, 0);
 
-            final String NAME = getMethod(isObf);
-            final String DESC = getMethodDesc(isObf);
+            final String NAME = getInitMethod(isObf);
+            final String DESC = getInitDesc(isObf);
 
-            final TypeInsnNode matchType = getTypeMatch(isObf);
-            final MethodInsnNode matchMethod = getMethodMatch(isObf);
+            final TypeInsnNode matchType = getRenderGlobalTypeMatch(isObf);
+            final MethodInsnNode matchMethod = getRenderGlobalMethodMatch(isObf);
 
             for (MethodNode mn : node.methods)
             {
@@ -59,7 +54,7 @@ public class MCStartTransformer extends ZTransformer
                             TypeInsnNode tn = (TypeInsnNode) n;
                             if (tn.desc.equals(matchType.desc))
                             {
-                                mn.instructions.set(n, getInstNode());
+                                mn.instructions.set(n, getZRenderGlobalInstNode());
                             }
                         }
                         else if (n instanceof MethodInsnNode)
@@ -67,7 +62,7 @@ public class MCStartTransformer extends ZTransformer
                             MethodInsnNode min = (MethodInsnNode) n;
                             if (min.owner.equals(matchMethod.owner) && min.name.equals(matchMethod.name))
                             {
-                                mn.instructions.set(n, getMethodNode(isObf));
+                                mn.instructions.set(n, getZRenderGlobalMethodNode(isObf));
                             }
                         }
                     }
@@ -87,42 +82,42 @@ public class MCStartTransformer extends ZTransformer
         return classBytes;
     }
 
-    private TypeInsnNode getTypeMatch(boolean isObf)
+    private TypeInsnNode getRenderGlobalTypeMatch(boolean isObf)
     {
-        return new TypeInsnNode(Opcodes.NEW, isObf ? obfRenderGlobal : srgRenderGlobal);
+        return new TypeInsnNode(Opcodes.NEW, isObf ? ObfTable.RenderGlobal.obf : ObfTable.RenderGlobal.srg);
     }
 
-    private MethodInsnNode getMethodMatch(boolean isObf)
+    private MethodInsnNode getRenderGlobalMethodMatch(boolean isObf)
     {
-        return new MethodInsnNode(Opcodes.INVOKESPECIAL, isObf ? obfRenderGlobal : srgRenderGlobal, "<init>", getTargetDesc(isObf), false);
+        return new MethodInsnNode(Opcodes.INVOKESPECIAL, isObf ? ObfTable.RenderGlobal.obf : ObfTable.RenderGlobal.srg, "<init>", getZRenderGlobalTargetDesc(isObf), false);
     }
 
-    private String getClass(boolean isObf)
+    private String getMinecraftClass(boolean isObf)
     {
-        return isObf ? obfClass : srgClass;
+        return isObf ? ObfTable.Minecraft.obf : ObfTable.Minecraft.srg;
     }
 
-    private String getMethod(boolean isObf)
+    private String getInitMethod(boolean isObf)
     {
-        return isObf ? obfMethod : srgMethod;
+        return isObf ? ObfTable.init.obf : ObfTable.init.srg;
     }
 
-    private String getMethodDesc(boolean isObf)
+    private String getInitDesc(boolean isObf)
     {
-        return isObf ? obfDescriptor : srgDescriptor;
+        return isObf ? obfInitDesc : srgInitDesc;
     }
 
-    private TypeInsnNode getInstNode()
+    private TypeInsnNode getZRenderGlobalInstNode()
     {
-        return new TypeInsnNode(Opcodes.NEW, renderGlobalClass);
+        return new TypeInsnNode(Opcodes.NEW, zRenderGlobalClass);
     }
 
-    private MethodInsnNode getMethodNode(boolean isObf)
+    private MethodInsnNode getZRenderGlobalMethodNode(boolean isObf)
     {
-        return new MethodInsnNode(Opcodes.INVOKESPECIAL, renderGlobalClass, "<init>", getTargetDesc(isObf), false);
+        return new MethodInsnNode(Opcodes.INVOKESPECIAL, zRenderGlobalClass, "<init>", getZRenderGlobalTargetDesc(isObf), false);
     }
 
-    private String getTargetDesc(boolean isObf)
+    private String getZRenderGlobalTargetDesc(boolean isObf)
     {
         return isObf ? obfRenderGlobalDesc : srgRenderGlobalDesc;
     }

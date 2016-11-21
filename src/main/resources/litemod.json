@@ -8,5 +8,8 @@
   "classTransformerClasses": [
     "de.minebench.zombe.liteloader.minecraft.transformers.MCStartTransformer",
     "de.minebench.zombe.liteloader.minecraft.transformers.PlayerTransformer"
+  ],
+  "mixinConfigs": [
+    "mixins.zombe.json"
   ]
 }

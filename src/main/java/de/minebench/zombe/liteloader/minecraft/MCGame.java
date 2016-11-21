@@ -47,12 +47,12 @@ public class MCGame implements MinecraftGame
     @Override
     public EntityPlayerSP getPlayer()
     {
-        return getMinecraft().thePlayer;
+        return getMinecraft().player;
     }
 
     @Override
     public LocationInfo getPlayerLocation() {
-        return new LocationInfo(getMinecraft().thePlayer.posX, getMinecraft().thePlayer.posY, getMinecraft().thePlayer.posZ);
+        return new LocationInfo(getMinecraft().player.posX, getMinecraft().player.posY, getMinecraft().player.posZ);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class MCGame implements MinecraftGame
     public boolean onSolidBlock()
     {
         BlockPos pos = new BlockPos(getPlayer().posX, getPlayer().lastTickPosY, getPlayer().posZ);
-        IBlockState blockState = getMinecraft().theWorld.getBlockState(pos.down());
+        IBlockState blockState = getMinecraft().world.getBlockState(pos.down());
         return blockState.getBlock().getMaterial(blockState).isSolid();
     }
 
@@ -94,7 +94,7 @@ public class MCGame implements MinecraftGame
     @Override
     public void tellPlayer(String msg)
     {
-        getPlayer().addChatMessage(getMessage(msg));
+        getPlayer().sendMessage(getMessage(msg));
     }
 
     @Override
@@ -139,7 +139,7 @@ public class MCGame implements MinecraftGame
                         if(!Zombe.get().ZController.oreHighlighterOn)
                             return;
 
-                        Block block = getMinecraft().theWorld.getBlockState(new BlockPos(x, y, z)).getBlock();
+                        Block block = getMinecraft().world.getBlockState(new BlockPos(x, y, z)).getBlock();
                         String name = block.getUnlocalizedName();
                         name = name.substring(name.indexOf(".") + 1);
                         ARGB color = Zombe.getConfig().oreColors.get(name);

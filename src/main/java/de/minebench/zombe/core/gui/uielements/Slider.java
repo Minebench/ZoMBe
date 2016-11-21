@@ -192,7 +192,7 @@ public class Slider extends GuiOptionSlider implements UIElement
 
     private float normalise(float f)
     {
-        return MathHelper.clamp_float(f, this.min, this.max);
+        return MathHelper.clamp(f, this.min, this.max);
     }
 
 }

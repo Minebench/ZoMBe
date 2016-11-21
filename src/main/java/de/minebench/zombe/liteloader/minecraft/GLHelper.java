@@ -124,7 +124,7 @@ public class GLHelper implements IGLHelper {
 
         glPushMatrix();
 
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().player;
         double x = player.prevPosX + (player.posX - player.prevPosX) * t;
         double y = player.prevPosY + (player.posY - player.prevPosY) * t;
         double z = player.prevPosZ + (player.posZ - player.prevPosZ) * t;

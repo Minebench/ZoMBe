@@ -28,6 +28,7 @@ import com.mumfrey.liteloader.transformers.event.MethodInfo;
 import com.mumfrey.liteloader.transformers.event.inject.BeforeReturn;
 import com.mumfrey.liteloader.transformers.event.inject.MethodHead;
 import de.minebench.zombe.liteloader.minecraft.EventListener;
+import de.minebench.zombe.liteloader.minecraft.ObfTable;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -38,13 +39,13 @@ public class PlayerTransformer extends EventInjectionTransformer
     @Override
     protected void addEvents()
     {
-        Event onSetupViewBobbing = Event.getOrCreate("onSetupViewBobbing", true);
-        MethodInfo setupViewBobbing = new MethodInfo(ObfTable.EntityRenderer, ObfTable.setupViewBobbing, "(F)V");
+        Event onSetupViewBobbing = Event.getOrCreate("EntityRenderer_setupViewBobbing", true);
+        MethodInfo setupViewBobbing = new MethodInfo(ObfTable.EntityRenderer, ObfTable.EntityRenderer_setupViewBobbing, "(F)V");
         addEvent(onSetupViewBobbing, setupViewBobbing, new MethodHead());
         onSetupViewBobbing.addListener(new MethodInfo(EventListener.class.getCanonicalName(), "onSetupViewBobbing"));
 
-        Event onUpdate = Event.getOrCreate("onUpdate", true);
-        MethodInfo onEntityUpdate = new MethodInfo(ObfTable.EntityPlayer, ObfTable.onUpdate, "()V");
+        Event onUpdate = Event.getOrCreate("EntityPlayer_onUpdate", true);
+        MethodInfo onEntityUpdate = new MethodInfo(ObfTable.EntityPlayer, ObfTable.EntityPlayer_onUpdate, "()V");
         addEvent(onUpdate, onEntityUpdate, new BeforeReturn());
         onUpdate.addListener(new MethodInfo(EventListener.class.getCanonicalName(), "onEntityUpdate"));
     }
