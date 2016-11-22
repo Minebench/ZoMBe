@@ -59,4 +59,8 @@ public class ChannelMessaging
     {
         dispatcher.dispatchMessage(data);
     }
+
+    public PluginMessageHandler getPluginMessageHandler() {
+        return handler;
+    }
 }

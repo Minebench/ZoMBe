@@ -94,7 +94,9 @@ public class MCGame implements MinecraftGame
     @Override
     public void tellPlayer(String msg)
     {
-        getPlayer().sendMessage(getMessage(msg));
+        if (getPlayer() != null) {
+            getPlayer().sendMessage(getMessage(msg));
+        }
     }
 
     @Override
