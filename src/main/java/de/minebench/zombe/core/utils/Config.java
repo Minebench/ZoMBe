@@ -77,7 +77,7 @@ public class Config
     public String speedKey = "C";
     @Expose
     @SerializedName("CineFlight_Key")
-    public String cineFlyKey = "B";
+    public String cineFlyKey = "V";
     @Expose
     @SerializedName("NoClip_Key")
     public String noClipKey = "NONE";
