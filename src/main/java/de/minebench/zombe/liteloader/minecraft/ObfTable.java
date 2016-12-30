@@ -31,7 +31,7 @@ import com.mumfrey.liteloader.core.runtime.Obf;
 public class ObfTable extends Obf
 {
 
-    public static ObfTable RenderGlobal = new ObfTable("net/minecraft/client/renderer/RenderGlobal", "boh");
+    public static ObfTable RenderGlobal = new ObfTable("net/minecraft/client/renderer/RenderGlobal", "bqk");
 
     public static ObfTable EntityRenderer_setupViewBobbing = new ObfTable("func_78475_f", "e", "applyBobbing");
 
