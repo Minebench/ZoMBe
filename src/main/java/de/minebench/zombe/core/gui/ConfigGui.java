@@ -196,7 +196,7 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(speedStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "Speed", "*",true).setString(config.speedStatus));
         uiElements.add(fullbrightStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "FullBright", "fb",true).setString(config.fullBrightStatus));
         uiElements.add(oreHighlighterStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "OreHighlighter", "o",true).setString(config.oreHighlighterStatus));
-        uiElements.add(mobHighlighterStatus = helper.getEntryBox(xRight, y + 21, 200, 17, "MobHighlighter", "m",true).setString(config.mobHighlighterStatus));
+        uiElements.add(mobHighlighterStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "MobHighlighter", "m",true).setString(config.mobHighlighterStatus));
 
         uiElements.add(scrollBar = new ScrollBar(displayWidth - 4, 0, displayHeight, maxYOffset).setVisible(isScrollable));
         setToolTips();
@@ -265,11 +265,9 @@ public abstract class ConfigGui extends GuiScreen
     {
         mouseHeld = true;
         if (isShiftKeyDown())
-        {
             for (UIElement e : uiElements)
                 e.shiftClicked();
-        }
-        else
+        else if (id > -1)
             for (UIElement e : uiElements)
                 e.mouseInput(x, y, id);
     }

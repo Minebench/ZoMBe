@@ -77,14 +77,13 @@ public class QuickMenu extends ConfigGui
         {
             int offset = 0;
             int i = Mouse.getDWheel();
-            Mouse.getDWheel();
             if (i > 0)
                 offset = 5 * scale();
             else if (i < 0)
                 offset = -5 * scale();
             if (offset != 0)
             {
-                if (super.yOffset + offset > 0 || super.yOffset + offset < super.maxYOffset)
+                if (super.yOffset + offset > 0 || super.yOffset + offset < super.maxYOffset - 42)
                     offset = 0;
                 super.yOffset += offset;
                 scroll(offset);
