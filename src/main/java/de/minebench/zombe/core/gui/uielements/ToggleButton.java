@@ -61,7 +61,7 @@ public class ToggleButton extends GuiButton implements UIElement
     @Override
     public void drawElement(int mouseX, int mouseY)
     {
-        super.drawButton(Zombe.getMC().getMinecraft(), mouseX, mouseY);
+        super.drawButton(Zombe.getMC().getMinecraft(), mouseX, mouseY, 0);
     }
 
     @Override
@@ -110,25 +110,19 @@ public class ToggleButton extends GuiButton implements UIElement
     @Override
     public void setYOffset(int offset)
     {
-        super.yPosition += offset;
+        super.y += offset;
     }
 
     @Override
     public void setYPos(int pos)
     {
-        super.yPosition = this.defaultY + pos;
+        super.y = this.defaultY + pos;
     }
 
     @Override
     public void resetYOffset()
     {
-        super.yPosition = defaultY;
-    }
-
-    @Override
-    public void drawButton(Minecraft m, int x, int y)
-    {
-        super.drawButton(m, x, y);
+        super.y = defaultY;
     }
 
     public String getDisplayString()

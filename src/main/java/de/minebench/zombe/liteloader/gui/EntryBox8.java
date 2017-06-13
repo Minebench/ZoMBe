@@ -25,7 +25,7 @@ public class EntryBox8 extends GuiTextField implements IEntryBox
 
     public EntryBox8(int x, int y, int width, int height, String label, String defaultValue, boolean colour)
     {
-        super(0, Zombe.getMC().getMinecraft().fontRendererObj, x, y, width, height);
+        super(0, Zombe.getMC().getMinecraft().fontRenderer, x, y, width, height);
         this.setFocused(false);
         this.setEnabled(true);
         this.coloured = colour;
@@ -72,7 +72,7 @@ public class EntryBox8 extends GuiTextField implements IEntryBox
     public void drawElement(int mouseX, int mouseY)
     {
         super.drawTextBox();
-        hovered = mouseX >= this.xPos && mouseX <= this.xPos + this.getWidth() && mouseY >= this.yPosition && mouseY <= this.yPosition + this.height;
+        hovered = mouseX >= this.xPos && mouseX <= this.xPos + this.getWidth() && mouseY >= this.y && mouseY <= this.y + this.height;
     }
 
     @Override
@@ -139,18 +139,18 @@ public class EntryBox8 extends GuiTextField implements IEntryBox
     @Override
     public void setYOffset(int offset)
     {
-        this.yPosition += offset;
+        this.y += offset;
     }
 
     @Override
     public void setYPos(int pos)
     {
-        this.yPosition = this.defaultY + pos;
+        this.y = this.defaultY + pos;
     }
 
     @Override
     public void resetYOffset()
     {
-        this.yPosition = defaultY;
+        this.y = defaultY;
     }
 }

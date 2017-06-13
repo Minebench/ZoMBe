@@ -48,5 +48,10 @@ public class PlayerTransformer extends EventInjectionTransformer
         MethodInfo onEntityUpdate = new MethodInfo(ObfTable.EntityPlayer, ObfTable.EntityPlayer_onUpdate, "()V");
         addEvent(onUpdate, onEntityUpdate, new BeforeReturn());
         onUpdate.addListener(new MethodInfo(EventListener.class.getCanonicalName(), "onEntityUpdate"));
+
+        Event onUpdateWalkingPlayer = Event.getOrCreate("EntityPlayerSP_onUpdateWalkingPlayer", true);
+        MethodInfo updateWalkingPlayer = new MethodInfo(ObfTable.EntityPlayerSP, ObfTable.EntityPlayerSP_onUpdateWalkingPlayer, "()V");
+        addEvent(onUpdateWalkingPlayer, updateWalkingPlayer, new MethodHead());
+        onUpdate.addListener(new MethodInfo(EventListener.class.getCanonicalName(), "onUpdateWalkingPlayer"));
     }
 }

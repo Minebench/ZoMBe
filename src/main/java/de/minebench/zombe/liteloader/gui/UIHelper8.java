@@ -2,8 +2,8 @@ package de.minebench.zombe.liteloader.gui;
 
 import de.minebench.zombe.api.ui.element.IEntryBox;
 import de.minebench.zombe.api.ui.UIHelper;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 import static com.mumfrey.liteloader.gl.GL.*;
@@ -27,7 +27,7 @@ public class UIHelper8 implements UIHelper
         float texMapScale = 0.001953125F;
 
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer worldRenderer = tessellator.getBuffer();
+        BufferBuilder worldRenderer = tessellator.getBuffer();
         worldRenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldRenderer.pos(x, y + height, 0).tex(u * texMapScale, v2 * texMapScale).endVertex();
         worldRenderer.pos(x + width, y + height, 0).tex(u2 * texMapScale, v2 * texMapScale).endVertex();

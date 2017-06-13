@@ -66,7 +66,7 @@ public class BindButton extends GuiButton implements UIElement
     @Override
     public void drawElement(int mouseX, int mouseY)
     {
-        super.drawButton(Zombe.getMC().getMinecraft(), mouseX, mouseY);
+        super.drawButton(Zombe.getMC().getMinecraft(), mouseX, mouseY, 0);
     }
 
     @Override
@@ -134,18 +134,18 @@ public class BindButton extends GuiButton implements UIElement
     @Override
     public void setYOffset(int offset)
     {
-        this.yPosition += offset;
+        this.y += offset;
     }
 
     @Override
     public void setYPos(int pos)
     {
-        this.yPosition = this.defaultY + pos;
+        this.y = this.defaultY + pos;
     }
 
     @Override
     public void resetYOffset()
     {
-        this.yPosition = defaultY;
+        this.y = defaultY;
     }
 }

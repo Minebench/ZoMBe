@@ -7,6 +7,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.MoverType;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.stats.RecipeBook;
 import net.minecraft.stats.StatisticsManager;
 import net.minecraft.world.World;
 
@@ -26,9 +27,9 @@ public class EntityDaFlyer extends EntityPlayerSP
     private double oldRotationYaw;
     private double oldRotationPitch;
 
-    public EntityDaFlyer(Minecraft mc, World world, NetHandlerPlayClient netHandlerPlayClient, StatisticsManager statisticsManager)
+    public EntityDaFlyer(Minecraft mc, World world, NetHandlerPlayClient netHandlerPlayClient, StatisticsManager statisticsManager, RecipeBook recipeBook)
     {
-        super(mc, world, netHandlerPlayClient, statisticsManager);
+        super(mc, world, netHandlerPlayClient, statisticsManager, recipeBook);
         this.movementInput = new ZMovementInput();
     }
 
@@ -58,76 +59,68 @@ public class EntityDaFlyer extends EntityPlayerSP
         super.onLivingUpdate();
     }
 
-    @Override
-    public void onUpdateWalkingPlayer()
+    public void softFall() // previously override onUpdateWalkingPlayer
     {
-        if (Zombe.get().ZController.softFallOn())
+        boolean sneaking = this.isSneaking();
+        if (sneaking != wasSneaking)
         {
-            boolean sneaking = this.isSneaking();
-            if (sneaking != wasSneaking)
+            if (sneaking)
             {
-                if (sneaking)
-                {
-                    connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_SNEAKING));
-                }
-                else
-                {
-                    connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.STOP_SNEAKING));
-                }
-                wasSneaking = sneaking;
-            }
-            double xChange = this.posX - this.oldPosX;
-            double yChange = getEntityBoundingBox().minY - oldMinY;
-            double zChange = posZ - oldPosZ;
-            double rotationChange = rotationYaw - oldRotationYaw;
-            double pitchChange = rotationPitch - oldRotationPitch;
-            boolean sendMovementUpdate = xChange * xChange + yChange * yChange + zChange * zChange > 9.0E-4D || ticksSinceMovePacket >= 20;
-            boolean sendLookUpdate = rotationChange != 0.0D || pitchChange != 0.0D;
-            boolean ground = true;
-            if (Zombe.get().ZController.flyModOn)
-            {
-                ground = !this.capabilities.allowFlying;
-            }
-            if (sendMovementUpdate && sendLookUpdate)
-            {
-                connection.sendPacket(new CPacketPlayer.PositionRotation(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, ground));
-            }
-            else if (sendMovementUpdate)
-            {
-                connection.sendPacket(new CPacketPlayer.Position(this.posX, this.getEntityBoundingBox().minY, this.posZ, ground));
-            }
-            else if (sendLookUpdate)
-            {
-                connection.sendPacket(new CPacketPlayer.Rotation(this.rotationYaw, this.rotationPitch, ground));
+                connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_SNEAKING));
             }
             else
             {
-                connection.sendPacket(new CPacketPlayer(ground));
+                connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.STOP_SNEAKING));
             }
-            ++ticksSinceMovePacket;
-            if (sendMovementUpdate)
-            {
-                oldPosX = posX;
-                oldMinY = getEntityBoundingBox().minY;
-                oldPosZ = posZ;
-                ticksSinceMovePacket = 0;
-            }
-            if (sendLookUpdate)
-            {
-                oldRotationPitch = rotationPitch;
-                oldRotationYaw = rotationYaw;
-            }
+            wasSneaking = sneaking;
+        }
+        double xChange = this.posX - this.oldPosX;
+        double yChange = getEntityBoundingBox().minY - oldMinY;
+        double zChange = posZ - oldPosZ;
+        double rotationChange = rotationYaw - oldRotationYaw;
+        double pitchChange = rotationPitch - oldRotationPitch;
+        boolean sendMovementUpdate = xChange * xChange + yChange * yChange + zChange * zChange > 9.0E-4D || ticksSinceMovePacket >= 20;
+        boolean sendLookUpdate = rotationChange != 0.0D || pitchChange != 0.0D;
+        boolean ground = true;
+        if (Zombe.get().ZController.flyModOn)
+        {
+            ground = !this.capabilities.allowFlying;
+        }
+        if (sendMovementUpdate && sendLookUpdate)
+        {
+            connection.sendPacket(new CPacketPlayer.PositionRotation(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, ground));
+        }
+        else if (sendMovementUpdate)
+        {
+            connection.sendPacket(new CPacketPlayer.Position(this.posX, this.getEntityBoundingBox().minY, this.posZ, ground));
+        }
+        else if (sendLookUpdate)
+        {
+            connection.sendPacket(new CPacketPlayer.Rotation(this.rotationYaw, this.rotationPitch, ground));
         }
         else
         {
-            super.onUpdateWalkingPlayer();
+            connection.sendPacket(new CPacketPlayer(ground));
+        }
+        ++ticksSinceMovePacket;
+        if (sendMovementUpdate)
+        {
+            oldPosX = posX;
+            oldMinY = getEntityBoundingBox().minY;
+            oldPosZ = posZ;
+            ticksSinceMovePacket = 0;
+        }
+        if (sendLookUpdate)
+        {
+            oldRotationPitch = rotationPitch;
+            oldRotationYaw = rotationYaw;
         }
     }
 
-    @Override
-    public void moveEntityWithHeading(float f1, float f2)
+    @Override //moveEntityWithHeading #1348
+    public void func_191986_a(float f1, float f2, float f3)
     {
-        super.moveEntityWithHeading(f1, f2);
+        super.func_191986_a(f1, f2, f3);
         if (this.isOnLadder() && !Zombe.get().ZController.flyModOn && Zombe.get().ZController.sprintModOn)
         {
             if (this.isCollidedHorizontally)

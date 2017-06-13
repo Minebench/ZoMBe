@@ -53,7 +53,7 @@ public class Label implements UIElement
     @Override
     public void drawElement(int mouseX, int mouseY)
     {
-        Zombe.getMC().getMinecraft().fontRendererObj.drawStringWithShadow(this.color + this.label, this.xPos, this.yPos, 0xFFFFFF);
+        Zombe.getMC().getMinecraft().fontRenderer.drawStringWithShadow(this.color + this.label, this.xPos, this.yPos, 0xFFFFFF);
     }
 
     @Override

@@ -167,11 +167,11 @@ public class HUD implements ZombeUI
                 {
                     if (Zombe.getConfig().textShadow)
                     {
-                        Zombe.getMC().getMinecraft().fontRendererObj.drawStringWithShadow(d.getTitle(), 5, slot, 0xFFFFFF);
+                        Zombe.getMC().getMinecraft().fontRenderer.drawStringWithShadow(d.getTitle(), 5, slot, 0xFFFFFF);
                     }
                     else
                     {
-                        Zombe.getMC().getMinecraft().fontRendererObj.drawString(d.getTitle(), 5, slot, 0xFFFFFF);
+                        Zombe.getMC().getMinecraft().fontRenderer.drawString(d.getTitle(), 5, slot, 0xFFFFFF);
                     }
                     slot += 10;
                 }

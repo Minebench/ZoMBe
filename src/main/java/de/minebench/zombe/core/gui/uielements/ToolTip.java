@@ -52,7 +52,7 @@ public class ToolTip extends Gui
 
             for (String s : lines)
             {
-                int var7 = Zombe.getMC().getMinecraft().fontRendererObj.getStringWidth(s);
+                int var7 = Zombe.getMC().getMinecraft().fontRenderer.getStringWidth(s);
                 if (var7 > var4)
                 {
                     var4 = var7;
@@ -84,7 +84,7 @@ public class ToolTip extends Gui
 
             for (int i = 0; i < lines.length; i++)
             {
-                Zombe.getMC().getMinecraft().fontRendererObj.drawStringWithShadow(lines[i], xPos, yPos, -1);
+                Zombe.getMC().getMinecraft().fontRenderer.drawStringWithShadow(lines[i], xPos, yPos, -1);
                 if (i == 0)
                     yPos += 2;
                 yPos += 10;

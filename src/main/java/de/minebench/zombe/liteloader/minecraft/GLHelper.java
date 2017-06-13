@@ -9,9 +9,9 @@ import de.minebench.zombe.api.minecraft.LocationInfo;
 import de.minebench.zombe.core.Zombe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Map;
@@ -51,7 +51,7 @@ public class GLHelper implements IGLHelper {
         for(Map.Entry<LocationInfo, ARGB> entry : oreHighlights.entrySet()) {
 
             Tessellator tess = Tessellator.getInstance();
-            VertexBuffer vb = tess.getBuffer();
+            BufferBuilder vb = tess.getBuffer();
 
             LocationInfo location = entry.getKey();
             ARGB color = entry.getValue();
@@ -91,7 +91,7 @@ public class GLHelper implements IGLHelper {
             color = new ARGB();
 
         Tessellator tess = Tessellator.getInstance();
-        VertexBuffer vb = tess.getBuffer();
+        BufferBuilder vb = tess.getBuffer();
 
         vb.begin(GL_LINES, VF_POSITION);
         glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha());

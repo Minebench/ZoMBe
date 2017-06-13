@@ -16,7 +16,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
     }
 }
@@ -24,13 +24,13 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.liteloader'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "1.0.4"
+version = "1.0.5"
 group = "de.minebench.zombe"
 archivesBaseName = "zombe"
 
 minecraft {
-    version = "1.11.2"
-    mappings = "snapshot_20161230"
+    version = "1.12"
+    mappings = "snapshot_20170613"
     runDir = "run"
 }
 
@@ -48,7 +48,7 @@ mixin {
 litemod {
     json {
         name = "ZoMBe"
-        mcversion = "1.11.2"
+        mcversion = "1.12"
         author = "Phoenix616 (based on work by dags and killjoy1221)"
         description = "A Minecraft utility mod based on DaFlight and inspired by zombe's modpack!"
         mixinConfigs += "mixins.zombe.json"
@@ -60,3 +60,4 @@ litemod {
 jar {
     from litemod.outputs
 }
+

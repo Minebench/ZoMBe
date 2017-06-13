@@ -80,7 +80,7 @@ public class Slider extends GuiOptionSlider implements UIElement
     @Override
     public void drawElement(int mouseX, int mouseY)
     {
-        this.drawButton(Zombe.getMC().getMinecraft(), mouseX, mouseY);
+        this.drawButton(Zombe.getMC().getMinecraft(), mouseX, mouseY, 0);
     }
 
     @Override
@@ -125,19 +125,19 @@ public class Slider extends GuiOptionSlider implements UIElement
     @Override
     public void setYOffset(int offset)
     {
-        super.yPosition += offset;
+        super.y += offset;
     }
 
     @Override
     public void setYPos(int pos)
     {
-        this.yPosition = this.defaultY + pos;
+        this.y = this.defaultY + pos;
     }
 
     @Override
     public void resetYOffset()
     {
-        super.yPosition = defaultY;
+        super.y = defaultY;
     }
 
     public Slider setDisplayString(String s)
@@ -169,7 +169,7 @@ public class Slider extends GuiOptionSlider implements UIElement
         {
             if (this.dragging)
             {
-                this.value = (float) (x - (this.xPosition + 4)) / (float) (((this.width) - 8) / max);
+                this.value = (float) (x - (this.x + 4)) / (float) (((this.width) - 8) / max);
 
                 if (this.value < min)
                 {
@@ -185,8 +185,8 @@ public class Slider extends GuiOptionSlider implements UIElement
                 this.displayString = name + ": " + getStringValue();
             }
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.xPosition + (int) (this.value * (float) ((this.width - 8)) / max), this.yPosition, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.xPosition + (int) (this.value * (float) ((this.width - 8)) / max) + 4, this.yPosition, 196, 66, 4, 20);
+            this.drawTexturedModalRect(this.x + (int) (this.value * (float) ((this.width - 8)) / max), this.y, 0, 66, 4, 20);
+            this.drawTexturedModalRect(this.x + (int) (this.value * (float) ((this.width - 8)) / max) + 4, this.y, 196, 66, 4, 20);
         }
     }
 

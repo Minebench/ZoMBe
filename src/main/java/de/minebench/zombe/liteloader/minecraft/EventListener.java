@@ -24,6 +24,8 @@ package de.minebench.zombe.liteloader.minecraft;
 
 import com.mumfrey.liteloader.transformers.event.EventInfo;
 import de.minebench.zombe.core.Zombe;
+import de.minebench.zombe.liteloader.minecraft.extended.EntityDaFlyer;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -49,6 +51,15 @@ public class EventListener
         if (ep instanceof EntityPlayerMP && Zombe.get().ZController.noClipOn && Zombe.get().ZController.flyModOn)
         {
             ep.noClip = true;
+        }
+    }
+
+    public static void onUpdateWalkingPlayer(EventInfo<EntityPlayerSP> e)
+    {
+        if (e.getSource() instanceof EntityDaFlyer && Zombe.get().ZController.softFallOn())
+        {
+            e.cancel();
+            ((EntityDaFlyer) e.getSource()).softFall();
         }
     }
 }
