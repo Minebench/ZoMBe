@@ -86,9 +86,8 @@ public class MCGame implements MinecraftGame
     @Override
     public void setInvulnerable(boolean invulnerable)
     {
-        EntityPlayer ep = getPlayer().getServer().getEntityWorld().getPlayerEntityByUUID(getPlayer().getUniqueID());
-        ep.capabilities.disableDamage = invulnerable || ep.capabilities.isCreativeMode || ep.isSpectator();
-        ep.sendPlayerAbilities();
+        getPlayer().capabilities.disableDamage = invulnerable || getPlayer().capabilities.isCreativeMode || getPlayer().isSpectator();
+        getPlayer().sendPlayerAbilities();
     }
 
     @Override
