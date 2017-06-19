@@ -24,6 +24,10 @@ public class ZRenderGlobal extends RenderGlobal
         {
             spectator = true;
         }
+        if (Zombe.get().ZController.seeThroughOn)
+        {
+            Zombe.getGLHelper().drawSeeThrough(Zombe.getConfig().seeThroughRange);
+        }
         super.setupTerrain(viewEntity, ticks, camera, frameCount, spectator);
     }
 }

@@ -39,6 +39,9 @@ public class ChannelMessaging
                 case ZData.MOB_HIGHLIGHTER:
                     handler.mobHighlighter(ZData.getBoolFor(value));
                     break;
+                case ZData.SEE_THROUGH:
+                    handler.seeThrough(ZData.getBoolFor(value));
+                    break;
                 case ZData.FLY_MOD:
                     handler.flyMod(ZData.getBoolFor(value));
                     break;

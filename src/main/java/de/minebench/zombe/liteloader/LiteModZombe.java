@@ -132,6 +132,7 @@ public class LiteModZombe implements ZombeAPI, Permissible, Tickable, HUDRenderL
         LiteModPermissions.registerPermission("noclip");
         LiteModPermissions.registerPermission("fullbright");
         LiteModPermissions.registerPermission("falldamange");
+        LiteModPermissions.registerPermission("seethrough");
         updatePermissions();
     }
 
@@ -143,6 +144,7 @@ public class LiteModZombe implements ZombeAPI, Permissible, Tickable, HUDRenderL
         boolean noClip = all || LiteModPermissions.hasPermission("noclip");
         boolean fullBright = all || LiteModPermissions.hasPermission("fullbright");
         boolean softFall = all || LiteModPermissions.hasPermission("softFall");
+        boolean seeThrough = all || LiteModPermissions.hasPermission("seethrough");
 
         PluginMessageHandler pmh = Zombe.getChannelMessaging().getPluginMessageHandler();
         pmh.flyMod(fly);
@@ -151,6 +153,7 @@ public class LiteModZombe implements ZombeAPI, Permissible, Tickable, HUDRenderL
         pmh.noClip(noClip);
         pmh.oreHighlighter(oreHighlighter);
         pmh.softFall(softFall);
+        pmh.seeThrough(seeThrough);
     }
 
 

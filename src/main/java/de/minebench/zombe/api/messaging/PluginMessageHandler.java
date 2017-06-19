@@ -21,4 +21,6 @@ public interface PluginMessageHandler
     public void refresh(byte value);
 
     public void setSpeed(int value);
+
+    public void seeThrough(boolean seeThrough);
 }

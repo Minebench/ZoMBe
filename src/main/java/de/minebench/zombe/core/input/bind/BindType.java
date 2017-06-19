@@ -41,6 +41,7 @@ public enum BindType
     FULLBRIGHT,
     OREHIGLIGHTER,
     MOBHIGLIGHTER,
+    SEETHROUGH,
     CINEFLIGHT,
     NO_CLIP,
     ;

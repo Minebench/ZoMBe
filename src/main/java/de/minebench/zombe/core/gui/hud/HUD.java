@@ -43,7 +43,8 @@ public class HUD implements ZombeUI
     private static final int FULLBRIGHT = 3;
     private static final int ORE_HIGHLIGHT = 4;
     private static final int MOB_HIGHLIGHT = 5;
-    private static final int TEMP = 6;
+    private static final int SEE_THROUGH = 6;
+    private static final int TEMP = 7;
 
     private List<ZEntry> mods;
     private int counter = 50;
@@ -56,6 +57,7 @@ public class HUD implements ZombeUI
     private String fb = "fb";
     private String oreHighlight = "o";
     private String mobHighlight = "m";
+    private String seeThrough = "s";
 
     public HUD()
     {
@@ -66,6 +68,7 @@ public class HUD implements ZombeUI
         mods.add(FULLBRIGHT, new ZEntry("", false));
         mods.add(ORE_HIGHLIGHT, new ZEntry("", false));
         mods.add(MOB_HIGHLIGHT, new ZEntry("", false));
+        mods.add(SEE_THROUGH, new ZEntry("", false));
         mods.add(TEMP, new ZEntry("", false));
     }
 
@@ -121,9 +124,12 @@ public class HUD implements ZombeUI
         // Xray
         mods.get(ORE_HIGHLIGHT).setTitle(oreHighlight);
         mods.get(ORE_HIGHLIGHT).setShow(dp.oreHighlighterOn);
-        // Xray
+        // Mob Highlighter
         mods.get(MOB_HIGHLIGHT).setTitle(mobHighlight);
         mods.get(MOB_HIGHLIGHT).setShow(dp.mobHighlighterOn);
+        // See Through
+        mods.get(SEE_THROUGH).setTitle(seeThrough);
+        mods.get(SEE_THROUGH).setShow(dp.seeThroughOn);
     }
 
     public void refreshStatuses()
@@ -136,6 +142,7 @@ public class HUD implements ZombeUI
         fb = Colour.getColouredString(Zombe.getConfig().fullBrightStatus);
         oreHighlight = Colour.getColouredString(Zombe.getConfig().oreHighlighterStatus);
         mobHighlight = Colour.getColouredString(Zombe.getConfig().mobHighlighterStatus);
+        seeThrough = Colour.getColouredString(Zombe.getConfig().seeThroughStatus);
     }
 
     public void renderTemp(String s)

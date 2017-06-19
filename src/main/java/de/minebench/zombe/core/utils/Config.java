@@ -79,6 +79,9 @@ public class Config
     @SerializedName("CineFlight_Key")
     public String cineFlyKey = "V";
     @Expose
+    @SerializedName("SeeThrough_Key")
+    public String seeThroughKey = "PERIOD";
+    @Expose
     @SerializedName("NoClip_Key")
     public String noClipKey = "NONE";
     @Expose
@@ -112,6 +115,9 @@ public class Config
     @Expose
     @SerializedName("MobHighlighter_Is_Toggle")
     public boolean mobHighlighterIsToggle = true;
+    @Expose
+    @SerializedName("SeeThrough_Is_Toggle")
+    public boolean seeThroughIsToggle = true;
     @Expose
     @SerializedName("NoClip_Is_Toggle")
     public boolean noCLipIsToggle = true;
@@ -171,6 +177,9 @@ public class Config
     @Expose
     @SerializedName("MobHighlighter_Range")
     public float mobHighlighterRange = 16F;
+    @Expose
+    @SerializedName("SeeThrough_Range")
+    public float seeThroughRange = 4F;
 
     /**
      * HudElements
@@ -193,6 +202,9 @@ public class Config
     @Expose
     @SerializedName("MobHighlighter_Status")
     public String mobHighlighterStatus = "m";
+    @Expose
+    @SerializedName("SeeThrough_Status")
+    public String seeThroughStatus = "s";
     @Expose
     @SerializedName("Speed_Status")
     public String speedStatus = "*";

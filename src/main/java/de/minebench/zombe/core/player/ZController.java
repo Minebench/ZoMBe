@@ -61,6 +61,7 @@ public class ZController
     public boolean oreHighlighterOn = false;
     public boolean mobHighlighterOn = false;
     public boolean noClipOn = false;
+    public boolean seeThroughOn = false;
 
     public Direction direction;
     public Vector movementVector;
@@ -276,6 +277,11 @@ public class ZController
         mobHighlighterOn = !mobHighlighterOn && Z_PERMISSIONS.mobHighlighterEnabled();
     }
 
+    public void toggleSeeThrough()
+    {
+        seeThroughOn = !seeThroughOn && Z_PERMISSIONS.seeThroughEnabled();
+    }
+
     public void disableAll()
     {
         if (Zombe.getMC().getMinecraft().inGameHasFocus)
@@ -294,6 +300,9 @@ public class ZController
             }
             if (oreHighlighterOn) {
                 toggleOreHighlighter();
+            }
+            if (seeThroughOn) {
+                toggleSeeThrough();
             }
         }
     }

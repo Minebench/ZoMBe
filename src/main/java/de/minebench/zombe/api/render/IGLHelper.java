@@ -35,4 +35,6 @@ public interface IGLHelper {
     public void endRender();
 
     public void drawMobHighlight(EntityInfo entity, float partialTicks);
+
+    public void drawSeeThrough(float range);
 }

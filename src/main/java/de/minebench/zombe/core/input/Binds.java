@@ -32,6 +32,7 @@ import de.minebench.zombe.core.input.actions.ToggleFullbright;
 import de.minebench.zombe.core.input.actions.ToggleMobHighlighter;
 import de.minebench.zombe.core.input.actions.ToggleOreHighlighter;
 import de.minebench.zombe.core.input.actions.ToggleNoClip;
+import de.minebench.zombe.core.input.actions.ToggleSeeThrough;
 import de.minebench.zombe.core.input.actions.ToggleSpeed;
 import de.minebench.zombe.core.input.actions.ToggleSprint;
 import de.minebench.zombe.core.input.bind.AbstractBind;
@@ -48,6 +49,7 @@ public class Binds
     public AbstractBind fullBright;
     public AbstractBind oreHighlighter;
     public AbstractBind mobHighlighter;
+    public AbstractBind seeThrough;
     public AbstractBind speedUp;
     public AbstractBind speedDown;
     public AbstractBind flyUp;
@@ -92,6 +94,9 @@ public class Binds
         mobHighlighter = getBind("MobHighlighter", c.mobHighlighterKey).setType(BindType.MOBHIGLIGHTER).setAction(new ToggleMobHighlighter());
         mobHighlighter.setToggle(c.mobHighlighterIsToggle);
         mobHighlighter.setCanHold(true);
+        seeThrough = getBind("SeeThrough", c.seeThroughKey).setType(BindType.SEETHROUGH).setAction(new ToggleSeeThrough());
+        seeThrough.setToggle(c.seeThroughIsToggle);
+        seeThrough.setCanHold(true);
         speedUp = getBind("Speed++", c.speedUpKey).setType(BindType.SPEEDUP).setAction(new SpeedIncrease());
         speedUp.setToggle(false);
         speedDown = getBind("Speed--", c.speedDownKey).setType(BindType.SPEEDDOWN).setAction(new SpeedDecrease());
@@ -113,7 +118,7 @@ public class Binds
         jump = getBind("Jump", "SPACE").setType(BindType.GENERIC).setCanHold(true).setToggle(false);
         updateMovementKeys();
 
-        binds = new AbstractBind[]{quickMenu, enableFly, enableSprint, speedModifier, fullBright, oreHighlighter, mobHighlighter, cineFlight, noClip, flyUp, flyDown, speedUp, speedDown};
+        binds = new AbstractBind[]{quickMenu, enableFly, enableSprint, speedModifier, fullBright, oreHighlighter, mobHighlighter, seeThrough, cineFlight, noClip, flyUp, flyDown, speedUp, speedDown};
         movementBinds = new AbstractBind[]{forward, backward, left, right, flyUp, flyDown};
     }
 

@@ -36,6 +36,7 @@ public class ZPermissions
     private boolean canHighlightMobs = true;
     private boolean noFallDamage = true;
     private boolean canNoClip = false;
+    private boolean canSeeThrough = true;
 
     public boolean flyEnabled()
     {
@@ -70,6 +71,11 @@ public class ZPermissions
         return canNoClip;
     }
 
+    public boolean seeThroughEnabled()
+    {
+        return canSeeThrough;
+    }
+
     public void resetPermissions()
     {
         canFly = true;
@@ -78,6 +84,7 @@ public class ZPermissions
         canHighlightOres = true;
         noFallDamage = true;
         canNoClip = false;
+        canSeeThrough = true;
     }
 
     public void setMovementModsEnabled(boolean b)
@@ -107,5 +114,10 @@ public class ZPermissions
 
     public void setMobHighlight(boolean b) {
         this.canHighlightMobs = b;
+    }
+
+    public void setSeeThroughEnabled(boolean b)
+    {
+        this.canSeeThrough = b;
     }
 }

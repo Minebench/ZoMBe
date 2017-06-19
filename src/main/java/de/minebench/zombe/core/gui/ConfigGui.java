@@ -65,6 +65,7 @@ public abstract class ConfigGui extends GuiScreen
     private Slider leftRightMultiplier;
     private Slider oreHighlighterRange;
     private Slider mobHighlighterRange;
+    private Slider seeThroughRange;
 
     private BindButton quickMenuKey;
     private BindButton flyKey;
@@ -79,6 +80,7 @@ public abstract class ConfigGui extends GuiScreen
     private BindButton oreHighlighterKey;
     private BindButton mobHighlighterKey;
     private BindButton noClipKey;
+    private BindButton seeThroughKey;
 
     private ToggleButton flyHold;
     private ToggleButton sprintHold;
@@ -87,6 +89,7 @@ public abstract class ConfigGui extends GuiScreen
     private ToggleButton oreHighlighterHold;
     private ToggleButton mobHighlighterHold;
     private ToggleButton noClipHold;
+    private ToggleButton seeThroughHold;
 
     private IEntryBox flyStatus;
     private IEntryBox cineStatus;
@@ -96,6 +99,7 @@ public abstract class ConfigGui extends GuiScreen
     private IEntryBox fullbrightStatus;
     private IEntryBox oreHighlighterStatus;
     private IEntryBox mobHighlighterStatus;
+    private IEntryBox seeThroughStatus;
 
     protected ScrollBar scrollBar;
 
@@ -162,6 +166,8 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(oreHighlighterHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.oreHighlighterIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(mobHighlighterKey = new BindButton(xLeft, y += 21, w1, 20, false, "MobHighlighter", config.mobHighlighterKey, "COMMA"));
         uiElements.add(mobHighlighterHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.mobHighlighterIsToggle, new String[]{"Hold", "Toggle"}));
+        uiElements.add(seeThroughKey = new BindButton(xLeft, y += 21, w1, 20, false, "SeeThrough", config.seeThroughKey, "NONE"));
+        uiElements.add(seeThroughHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.seeThroughIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(noClipKey = new BindButton(xLeft, y += 21, w1, 20, false, "NoClip", config.noClipKey, "NONE"));
         uiElements.add(noClipHold = new ToggleButton(1, xLeft + w1 + 1, y, w2, 20, "Hold", config.noCLipIsToggle, new String[]{"Hold", "Toggle"}));
         uiElements.add(quickMenuKey = new BindButton(xLeft, y += 21, w1, 20, false, "Quick Menu", config.quickMenuKey, "F7"));
@@ -186,6 +192,7 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(leftRightMultiplier = new Slider("Left/RightMultiplier", 1, xRight, y += 21, 0F, 1F, config.lrModifier, 200));
         uiElements.add(oreHighlighterRange = new Slider("OreHighlighterRange", 1, xRight, y += 21, 0F, 64F, config.oreHighlighterRange, 200));
         uiElements.add(mobHighlighterRange = new Slider("MobHighlighterRange", 1, xRight, y += 21, 0F, 64F, config.mobHighlighterRange, 200));
+        uiElements.add(seeThroughRange = new Slider("SeeThroughRange", 1, xRight, y += 21, 0F, 32F, config.seeThroughRange, 200));
 
         uiElements.add(new Label(xRight, y += 31, "Statuses").setColour(TextFormatting.DARK_AQUA));
         UIHelper helper = Zombe.getUIHelper();
@@ -197,6 +204,7 @@ public abstract class ConfigGui extends GuiScreen
         uiElements.add(fullbrightStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "FullBright", "fb",true).setString(config.fullBrightStatus));
         uiElements.add(oreHighlighterStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "OreHighlighter", "o",true).setString(config.oreHighlighterStatus));
         uiElements.add(mobHighlighterStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "MobHighlighter", "m",true).setString(config.mobHighlighterStatus));
+        uiElements.add(seeThroughStatus = helper.getEntryBox(xRight, y += 21, 200, 17, "SeeThrough", "s",true).setString(config.seeThroughStatus));
 
         uiElements.add(scrollBar = new ScrollBar(displayWidth - 4, 0, displayHeight, maxYOffset).setVisible(isScrollable));
         setToolTips();
@@ -221,6 +229,7 @@ public abstract class ConfigGui extends GuiScreen
         speedKey.addToolTip(new ToolTip("Speed", "Enable/Disable the speed boost for FlyMod or", "SprintMod depending on which is active."));
         cineKey.addToolTip(new ToolTip("CineFly", "Enable/Disable cinematic flight mode. Is only", "active whilst FlyMod is on."));
         noClipKey.addToolTip(new ToolTip("NoClip", "Enable/Disable NoClip mode while flying (allows", "you to fly through solid blocks). Currently", "only works in single-player creative mode."));
+        seeThroughKey.addToolTip(new ToolTip("SeeThrough", "Enable/Disable SeeThrough mode (allows you to", "see through nearby objects)"));
         fullBrightKey.addToolTip(new ToolTip("FullBright", "Enable/Disable: Lights the entire world to full brightness."));
         oreHighlighterKey.addToolTip(new ToolTip("OreHighlighter", "Enable/Disable the highlighting of ores through walls."));
         mobHighlighterKey.addToolTip(new ToolTip("MobHighlighter", "Enable/Disable the highlighting of mobs through walls."));
@@ -238,6 +247,7 @@ public abstract class ConfigGui extends GuiScreen
         oreHighlighterHold.addToolTip(hold);
         mobHighlighterHold.addToolTip(hold);
         noClipHold.addToolTip(hold);
+        seeThroughHold.addToolTip(hold);
 
         flySpeed.addToolTip(new ToolTip("FlySpeed", "Set the base fly speed."));
         flyMultiplier.addToolTip(new ToolTip("FlySpeedMultiplier", "Set the boosted fly speed (toggled", "by the speed key)"));
@@ -248,6 +258,7 @@ public abstract class ConfigGui extends GuiScreen
         leftRightMultiplier.addToolTip(new ToolTip("Left/RightMultiplier", "Adjust the amount of side-to-side speed", "to be applied when strafing with sprint or", "fly mod on."));
         oreHighlighterRange.addToolTip(new ToolTip("OreHighlighter Range", "Adjust the range in which ores are highlighted."));
         mobHighlighterRange.addToolTip(new ToolTip("MobHighlighter Range", "Adjust the range in which mobs are highlighted."));
+        seeThroughRange.addToolTip(new ToolTip("SeeTrhough Range", "Adjust the range in which you can see through objects."));
     }
 
     @Override
@@ -356,6 +367,7 @@ public abstract class ConfigGui extends GuiScreen
         config.lrModifier = leftRightMultiplier.getValue();
         config.oreHighlighterRange = oreHighlighterRange.getValue();
         config.mobHighlighterRange = mobHighlighterRange.getValue();
+        config.seeThroughRange = seeThroughRange.getValue();
 
         config.flyKey = flyKey.getValue();
         config.flyIsToggle = flyHold.getToggleState();
@@ -371,6 +383,8 @@ public abstract class ConfigGui extends GuiScreen
         config.oreHighlighterIsToggle = oreHighlighterHold.getToggleState();
         config.mobHighlighterKey = mobHighlighterKey.getValue();
         config.mobHighlighterIsToggle = mobHighlighterHold.getToggleState();
+        config.seeThroughKey = seeThroughKey.getValue();
+        config.seeThroughIsToggle = seeThroughHold.getToggleState();
         config.cineFlyKey = cineKey.getValue();
         config.upKey = flyUpKey.getValue();
         config.downKey = flyDownKey.getValue();
@@ -386,6 +400,7 @@ public abstract class ConfigGui extends GuiScreen
         config.fullBrightStatus = fullbrightStatus.getValue();
         config.oreHighlighterStatus = oreHighlighterStatus.getValue();
         config.mobHighlighterStatus = mobHighlighterStatus.getValue();
+        config.seeThroughStatus = seeThroughStatus.getValue();
 
         Zombe.getConfig().saveConfig();
         Zombe.getConfig().applySettings();

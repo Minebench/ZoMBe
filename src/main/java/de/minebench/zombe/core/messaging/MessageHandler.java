@@ -92,6 +92,19 @@ public class MessageHandler implements PluginMessageHandler
     }
 
     @Override
+    public void seeThrough(boolean enable)
+    {
+        String message = enable ? "SeeThrough allowed!" : "SeeThrough not allowed!";
+        if (getPerms().seeThroughEnabled() != enable)
+        {
+            Zombe.getMC().tellPlayer(message);
+        }
+        ZController.Z_PERMISSIONS.setSeeThroughEnabled(enable);
+        if (!enable && Zombe.get().ZController.seeThroughOn)
+            Zombe.get().ZController.toggleSeeThrough();
+    }
+
+    @Override
     public void refresh(byte value)
     {
         if (Zombe.get().ZController.flyModOn || Zombe.get().ZController.sprintModOn)

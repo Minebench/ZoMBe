@@ -14,6 +14,9 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import org.lwjgl.opengl.GL11;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.util.Map;
 
 /**
@@ -129,7 +132,29 @@ public class GLHelper implements IGLHelper {
         double y = player.prevPosY + (player.posY - player.prevPosY) * t;
         double z = player.prevPosZ + (player.posZ - player.prevPosZ) * t;
         glTranslated(-x, -y, -z);
+    }
 
+    @Override
+    public void drawSeeThrough(float range) {
+        float matrix[] = new float[16];
+
+        FloatBuffer buf = ByteBuffer.allocateDirect(matrix.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, buf);
+        buf.get(matrix).rewind();
+
+        float w = (1.0F + matrix[10]) / matrix[14];
+        float dot = 1.0f - range * w;
+
+        matrix[2] = 0.0f;
+        matrix[6] = 0.0f;
+        matrix[10] = (-2.0f / dot) + 1.0f;
+        matrix[14] = range * (-2.0f / dot);
+
+        buf.put(matrix).rewind();
+
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadMatrix(buf);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
     }
 
     @Override

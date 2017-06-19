@@ -17,6 +17,7 @@ public final class ZData
     public static final byte REFRESH = 4;
     public static final byte ORE_HIGHLIGHTER = 5;
     public static final byte MOB_HIGHLIGHTER = 6;
+    public static final byte SEE_THROUGH = 7;
     public static final byte SPEED = 100;
 
     // Client->Server join message
