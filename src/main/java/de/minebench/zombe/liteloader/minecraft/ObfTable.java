@@ -30,17 +30,6 @@ import com.mumfrey.liteloader.core.runtime.Obf;
 
 public class ObfTable extends Obf
 {
-
-    public static ObfTable RenderGlobal = new ObfTable("net.minecraft.client.renderer.RenderGlobal", "buw");
-
-    public static ObfTable EntityRenderer_setupViewBobbing = new ObfTable("func_78475_f", "e", "applyBobbing");
-
-    public static ObfTable EntityPlayer = new ObfTable("net.minecraft.client.entity.player.EntityPlayer", "aeb");
-    public static ObfTable EntityPlayer_onUpdate = new ObfTable("func_70071_h_", "B_", "onUpdate");
-
-    public static ObfTable EntityPlayerSP = new ObfTable("net.minecraft.client.entity.EntityPlayerSP", "bub");
-    public static ObfTable EntityPlayerSP_onUpdateWalkingPlayer = new ObfTable("func_175161_p", "N", "onUpdateWalkingPlayer");
-
     public static ObfTable PlayerControllerMP_connection = new ObfTable("field_78774_b", "b", "connection");
 
     public ObfTable(String seargeName, String obfName)

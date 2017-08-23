@@ -2,7 +2,7 @@ package de.minebench.zombe.liteloader.minecraft.mixins;
 
 import de.minebench.zombe.core.utils.FieldAccess;
 import de.minebench.zombe.liteloader.minecraft.ObfTable;
-import de.minebench.zombe.liteloader.minecraft.extended.EntityDaFlyer;
+import de.minebench.zombe.liteloader.minecraft.extended.EntityZFlyer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -18,14 +18,14 @@ public class MixinPlayerControllerMP {
 
     /**
      * @author Phoenix616
-     * @reason Create EntityDaFlyer object
+     * @reason Create EntityZFlyer object
      */
-    @Overwrite(aliases = {"createClientPlayer", "func_192830_a", "a"})
-    public EntityPlayerSP func_192830_a(World worldIn, StatisticsManager statisticsManager, RecipeBook recipeBook)
+    @Overwrite(aliases = {"createPlayer", "func_192830_a", "a"})
+    public EntityPlayerSP createPlayer(World worldIn, StatisticsManager statisticsManager, RecipeBook recipeBook)
     {
         String[] fieldObf = ObfTable.PlayerControllerMP_connection.names;
         FieldAccess<NetHandlerPlayClient> netHandlerAccessor = new FieldAccess<NetHandlerPlayClient>(PlayerControllerMP.class, fieldObf);
         NetHandlerPlayClient netHandlerPlayClient = netHandlerAccessor.get(Minecraft.getMinecraft().playerController);
-        return new EntityDaFlyer(Minecraft.getMinecraft(), worldIn, netHandlerPlayClient, statisticsManager, recipeBook);
+        return new EntityZFlyer(Minecraft.getMinecraft(), worldIn, netHandlerPlayClient, statisticsManager, recipeBook);
     }
 }

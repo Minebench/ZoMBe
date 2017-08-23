@@ -1,9 +1,12 @@
 {
     "required": false,
-    "minVersion": "0.5.3",
+    "minVersion": "0.7",
     "package": "de.minebench.zombe.liteloader.minecraft.mixins",
     "refmap": "mixins.zombe.refmap.json",
     "mixins": [
+        "MixinEntityPlayer",
+        "MixinEntityPlayerSP",
+        "MixinEntityRenderer",
         "MixinMinecraft",
         "MixinPlayerControllerMP"
     ],

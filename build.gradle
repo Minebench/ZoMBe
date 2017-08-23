@@ -17,7 +17,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.5-SNAPSHOT'
     }
 }
 
@@ -30,7 +30,7 @@ archivesBaseName = "zombe"
 
 minecraft {
     version = "1.12"
-    mappings = "snapshot_20170613"
+    mappings = "snapshot_20170823"
     runDir = "run"
 }
 
@@ -52,7 +52,6 @@ litemod {
         author = "Phoenix616 (based on work by dags and killjoy1221)"
         description = "A Minecraft utility mod based on DaFlight and inspired by zombe's modpack!"
         mixinConfigs += "mixins.zombe.json"
-        classTransformerClasses += "de.minebench.zombe.liteloader.minecraft.transformers.PlayerTransformer"
     }
 }
 

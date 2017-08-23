@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * @author dags_ <dags@dags.me>
  */
 
-public class EntityDaFlyer extends EntityPlayerSP
+public class EntityZFlyer extends EntityPlayerSP
 {
     private ZMovementInput movementInput;
     private int ticksSinceMovePacket = 0;
@@ -27,7 +27,7 @@ public class EntityDaFlyer extends EntityPlayerSP
     private double oldRotationYaw;
     private double oldRotationPitch;
 
-    public EntityDaFlyer(Minecraft mc, World world, NetHandlerPlayClient netHandlerPlayClient, StatisticsManager statisticsManager, RecipeBook recipeBook)
+    public EntityZFlyer(Minecraft mc, World world, NetHandlerPlayClient netHandlerPlayClient, StatisticsManager statisticsManager, RecipeBook recipeBook)
     {
         super(mc, world, netHandlerPlayClient, statisticsManager, recipeBook);
         this.movementInput = new ZMovementInput();
@@ -117,10 +117,10 @@ public class EntityDaFlyer extends EntityPlayerSP
         }
     }
 
-    @Override //moveEntityWithHeading #1348
-    public void func_191986_a(float f1, float f2, float f3)
+    @Override //moveEntityWithHeading travel func_191986_a #1348
+    public void travel(float f1, float f2, float f3)
     {
-        super.func_191986_a(f1, f2, f3);
+        super.travel(f1, f2, f3);
         if (this.isOnLadder() && !Zombe.get().ZController.flyModOn && Zombe.get().ZController.sprintModOn)
         {
             if (this.isCollidedHorizontally)
