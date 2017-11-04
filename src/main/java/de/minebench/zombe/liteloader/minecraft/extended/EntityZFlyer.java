@@ -123,7 +123,7 @@ public class EntityZFlyer extends EntityPlayerSP
         super.travel(f1, f2, f3);
         if (this.isOnLadder() && !Zombe.get().ZController.flyModOn && Zombe.get().ZController.sprintModOn)
         {
-            if (this.isCollidedHorizontally)
+            if (this.collidedHorizontally)
             {
                 if (this.rotationPitch < -30F)
                 {

@@ -24,13 +24,13 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.liteloader'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "1.0.7"
+version = "1.0.8"
 group = "de.minebench.zombe"
 archivesBaseName = "zombe"
 
 minecraft {
-    version = "1.12.1"
-    mappings = "snapshot_20170826"
+    version = "1.12.2"
+    mappings = "snapshot_20171104"
     runDir = "run"
 }
 
@@ -48,7 +48,7 @@ mixin {
 litemod {
     json {
         name = "ZoMBe"
-        mcversion = "1.12.1"
+        mcversion = "1.12.2"
         author = "Phoenix616 (based on work by dags and killjoy1221)"
         description = "A Minecraft utility mod based on DaFlight and inspired by zombe's modpack!"
         mixinConfigs += "mixins.zombe.json"
